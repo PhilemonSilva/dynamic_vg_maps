@@ -6,8 +6,6 @@ const useCanvas = (draw) => {
 
     useEffect(() => {
         const canvas = canvasRef.current;
-        canvas.width = 600;
-        canvas.height = 600;
         const context = canvas.getContext('2d');
 
         draw(context)
