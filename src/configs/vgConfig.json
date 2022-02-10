@@ -1,18 +1,22 @@
 {
   "xCount" : 100,
   "yCount" : 100,
+  "fill": 60,
+  "seed": "I am Default",
   "cellTypes" : [
     {
       "id": 0,
       "name": "empty",
       "solid": false,
-      "color": "#e74c3c"
+      "color": "#f1c40f",
+      "spawnChance": 100
     },
     {
       "id": 1,
       "name": "block",
       "solid": true,
-      "color": "#e74c3c"
+      "color": "#e74c3c",
+      "spawnChance": 100
     }
   ]
 }

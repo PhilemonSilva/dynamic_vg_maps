@@ -1,34 +1,43 @@
-const seedrandom = require('seedrandom');
-const rng  = seedrandom('I am test');
+import {log} from "../loggers/InternalLogger";
 
-const randomFromInterval = (min, max) => { // min and max included
+const seedrandom = require('seedrandom');
+let rng = seedrandom();
+
+const randomFromInterval = (min, max) => {
+    // 'min' and 'max' are included
     return rng() * (max - min + 1) + min;
 }
 
-const generateMap = () => {
-    let xCount = 100;
-    let yCount = 100;
-    let fill = 60;
-
-    let solidCell = { solid: true };
-    let emptyCell = { solid: false };
-
+const generateMap = (config) => {
     const map = [];
-    for (let x = 0; x < xCount; x++){
+
+    if(!config.cellTypes || config.cellTypes.length <= 0)
+        return map;
+
+    if(config.seed){
+        rng  = seedrandom(config.seed);
+    }
+
+    log(`Creating ${config.xCount}x${config.yCount} room...`);
+
+    for (let x = 0; x < config.xCount; x++){
         map.push([]);
-        for (let y = 0; y < yCount; y++) {
+        for (let y = 0; y < config.yCount; y++) {
             let cellRng = randomFromInterval(0,100);
-            if(cellRng < fill)
-                map[x].push(solidCell);
-            else
-                map[x].push(emptyCell);
+            map[x].push(cellRng < config.fill);
         }
     }
+
+    log(`Room created...!`);
     return map;
 }
 
-const iterateOn = (array, operation) => {
+const selectCell = (solidCellArray , cellSelector) => {
+    if(solidCellArray.length === 1)
+        return solidCellArray[0];
+    for (let i = 0; i < solidCellArray.length; i++) {
 
+    }
 }
 
 export default generateMap
