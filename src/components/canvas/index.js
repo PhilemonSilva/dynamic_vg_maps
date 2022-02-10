@@ -1,32 +1,30 @@
 import React, { useCallback } from 'react'
 import useCanvas from "./canvasManager";
+import generateMap from "../../scripts/mapGenerator";
 
 const Canvas = props => {
 
     const red = '#e74c3c';
     const yellow = '#f1c40f';
-    const cellSide = 200;
+    const cellSide = 3;
 
     const testCellRed = { color: red }
     const testCellYellow = { color: yellow }
 
-    const map  = [
-        [testCellRed, testCellYellow, testCellRed],
-        [testCellYellow, testCellRed, testCellYellow],
-        [testCellRed, testCellYellow, testCellRed]
-    ];
-
+    const map  = generateMap();
     const draw = useCallback((context) => {
         for (let i = 0; i < map.length; i++) {
             for (let j = 0; j < map[i].length; j++) {
                 let x = j * cellSide;
                 let y = i * cellSide;
                 context.beginPath();
-                context.fillStyle = map[i][j].color;
+                context.fillStyle = yellow;
+                if(map[i][j].solid)
+                    context.fillStyle = red;
                 context.fillRect(x, y, cellSide, cellSide);
             }
         }
-    },[[JSON.stringify(map)]])
+    },[ cellSide, [JSON.stringify(map)]])
 
     const canvasRef = useCanvas(draw);
 
