@@ -1,0 +1,18 @@
+{
+  "xCount" : 100,
+  "yCount" : 100,
+  "cellTypes" : [
+    {
+      "id": 0,
+      "name": "empty",
+      "solid": false,
+      "color": "#e74c3c"
+    },
+    {
+      "id": 1,
+      "name": "block",
+      "solid": true,
+      "color": "#e74c3c"
+    }
+  ]
+}

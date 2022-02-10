@@ -1,11 +1,10 @@
-import logo from './logo.svg';
 import './App.css';
-import Canvas from "./components/canvas";
+import ScreenLayout from "./components/screenLayout";
 
 function App() {
   return (
     <main className="App">
-      <Canvas/>
+        <ScreenLayout/>
     </main>
   );
 }

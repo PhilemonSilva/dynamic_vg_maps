@@ -2,14 +2,12 @@ import React, { useCallback } from 'react'
 import useCanvas from "./canvasManager";
 import generateMap from "../../scripts/mapGenerator";
 
-const Canvas = props => {
+const Canvas = ({...props}) => {
 
     const red = '#e74c3c';
     const yellow = '#f1c40f';
     const cellSide = 3;
-
-    const testCellRed = { color: red }
-    const testCellYellow = { color: yellow }
+    //getBoundingClientRect
 
     const map  = generateMap();
     const draw = useCallback((context) => {
