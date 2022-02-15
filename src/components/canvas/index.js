@@ -1,15 +1,26 @@
-import React, {useCallback} from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
 import useCanvas from "./canvasManager";
 import generateMap from "../../scripts/mapGenerator";
 import PropTypes from 'prop-types';
 
-const Canvas = ({ config, ...props}) => {
+const Canvas = ({ config, isGeneratingMap, setIsGeneratingMap, ...props}) => {
+
+    const [map, setMap]  = useState([[]]);
     const cellSide = 2;
 
     const red = '#e74c3c';
     const yellow = '#f1c40f';
 
-    const map  = generateMap(config);
+    const generateNewMap = useCallback(()=>{
+        if(isGeneratingMap){
+            setMap(generateMap(config));
+            setIsGeneratingMap(false);
+        }
+    }, [config, isGeneratingMap])
+    useEffect(()=>{
+        generateNewMap();
+    }, [generateNewMap])
+
     const draw = useCallback((context) => {
         for (let i = 0; i < map.length; i++) {
             for (let j = 0; j < map[i].length; j++) {
@@ -34,7 +45,9 @@ const Canvas = ({ config, ...props}) => {
 }
 
 Canvas.propTypes = {
-    config: PropTypes.object
+    config: PropTypes.object,
+    isGeneratingMap: PropTypes.bool,
+    setIsGeneratingMap: PropTypes.func
 }
 
 Canvas.defaultProps = {
@@ -42,7 +55,9 @@ Canvas.defaultProps = {
         xCount:100,
         yCount: 100,
         cellTypes: []
-    }
+    },
+    isGeneratingMap: false,
+    setIsGeneratingMap: () => { }
 }
 
 export default Canvas

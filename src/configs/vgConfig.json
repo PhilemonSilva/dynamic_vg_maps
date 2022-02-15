@@ -1,8 +1,8 @@
 {
   "xCount" : 100,
   "yCount" : 100,
-  "fill": 60,
-  "seed": "I am Default",
+  "fill": 40,
+  "seed": "",
   "cellTypes" : [
     {
       "id": 0,
