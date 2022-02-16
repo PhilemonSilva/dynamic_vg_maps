@@ -27,6 +27,7 @@ const ScreenLayout = () => {
         logConfigUpdate()
     }, [logConfigUpdate])
 
+    //TODO: Validation rule: wallWidth must be < xCount and yCount
     return <>
         <Canvas
             config={config}

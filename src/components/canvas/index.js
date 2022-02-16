@@ -54,6 +54,8 @@ Canvas.defaultProps = {
     config: {
         xCount:100,
         yCount: 100,
+        roomWallMinimumWidth: 2,
+        fill: 40,
         cellTypes: []
     },
     isGeneratingMap: false,

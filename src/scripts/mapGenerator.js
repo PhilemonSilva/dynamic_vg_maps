@@ -28,7 +28,7 @@ const generateRandomRoom = (config) => {
     for (let x = 0; x < config.xCount; x++) {
         map.push([]);
         for (let y = 0; y < config.yCount; y++) {
-            if (x === 0 || x === config.xCount - 1 || y === 0 || y === config.yCount - 1) {
+            if (isOuterRoomWall(x, y, config.xCount, config.yCount, config.roomWallMinimumWidth)) {
                 map[x].push(true);
                 continue;
             }
@@ -66,6 +66,13 @@ const getSurroundingSolidCellCount = (map, x, y) => {
         }
     }
     return solidCellCount;
+}
+
+const isOuterRoomWall = (x, y, roomX, roomY, wallWidth) => {
+    return (x >= 0 && x < wallWidth)
+        || (x <= roomX - 1 && x > (roomX - 1 - wallWidth))
+        || (y >= 0 && y < wallWidth)
+        || (y <= roomY - 1 && y > (roomY - 1 - wallWidth))
 }
 
 const selectCell = (solidCellArray, cellSelector) => {

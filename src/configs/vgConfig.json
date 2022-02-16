@@ -1,8 +1,9 @@
 {
   "xCount" : 100,
   "yCount" : 100,
-  "fill": 43,
+  "fill": 40,
   "seed": "",
+  "roomWallMinimumWidth": 2,
   "cellTypes" : [
     {
       "id": 0,
