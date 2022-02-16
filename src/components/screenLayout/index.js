@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { Button } from 'semantic-ui-react'
+import React, {useEffect, useState, useCallback} from 'react';
+import {Button} from 'semantic-ui-react'
 import Canvas from "../canvas";
 import {log, logImportant} from "../../loggers/InternalLogger";
 
@@ -16,16 +16,16 @@ const ScreenLayout = () => {
     const [config, setConfig] = useState(require('../../configs/vgConfig.json'))
     const [isGeneratingMap, setIsGeneratingMap] = useState(true);
 
-    useEffect(()=>{
+    useEffect(() => {
         logImportant('Initialized');
     }, [])
 
-    const logConfigUpdate = useCallback(()=>{
+    const logConfigUpdate = useCallback(() => {
         logConfiguration(config);
     }, [config])
     useEffect(() => {
         logConfigUpdate()
-    },[logConfigUpdate])
+    }, [logConfigUpdate])
 
     return <>
         <Canvas

@@ -4,7 +4,7 @@ const seedrandom = require('seedrandom');
 let rng = seedrandom();
 
 const randomFromInterval = (min, max) => {
-    // 'min' and 'max' are included
+    // The 'min' and 'max' values are included
     return rng() * (max - min + 1) + min;
 }
 
@@ -17,7 +17,7 @@ const generateMap = (config) => {
     log(`Creating ${config.xCount}x${config.yCount} room...`);
     let map = generateRandomRoom(config);
     for (let i = 0; i < 5; i++) {
-        smooth(map);
+        map = smooth(map);
     }
     log(`Room created...!`);
     return map;
@@ -28,7 +28,7 @@ const generateRandomRoom = (config) => {
     for (let x = 0; x < config.xCount; x++) {
         map.push([]);
         for (let y = 0; y < config.yCount; y++) {
-            if (x === 0 || x === config.xCount - 1 || y === 0 || y === config.yCount) {
+            if (x === 0 || x === config.xCount - 1 || y === 0 || y === config.yCount - 1) {
                 map[x].push(true);
                 continue;
             }
@@ -40,15 +40,17 @@ const generateRandomRoom = (config) => {
 }
 
 const smooth = (map) => {
+    let smoothMap = map
     for (let x = 0; x < map.length; x++) {
         for (let y = 0; y < map[x].length; y++) {
             let solidCellCount = getSurroundingSolidCellCount(map, x, y);
             if (solidCellCount > 4)
-                map[x][y] = true;
+                smoothMap[x][y] = true;
             else if (solidCellCount < 4)
-                map[x][y] = false;
+                smoothMap[x][y] = false;
         }
     }
+    return smoothMap;
 }
 
 const getSurroundingSolidCellCount = (map, x, y) => {
