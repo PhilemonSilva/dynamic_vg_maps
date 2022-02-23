@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 const Canvas = ({ config, isGeneratingMap, setIsGeneratingMap, ...props}) => {
 
     const [map, setMap]  = useState([[]]);
-    const cellSide = 2;
 
     const red = '#e74c3c';
     const yellow = '#f1c40f';
@@ -21,7 +20,7 @@ const Canvas = ({ config, isGeneratingMap, setIsGeneratingMap, ...props}) => {
         generateNewMap();
     }, [generateNewMap])
 
-    const draw = useCallback((context) => {
+    const draw = useCallback((context, cellSide) => {
         for (let i = 0; i < map.length; i++) {
             for (let j = 0; j < map[i].length; j++) {
                 let x = j * cellSide;
@@ -33,13 +32,16 @@ const Canvas = ({ config, isGeneratingMap, setIsGeneratingMap, ...props}) => {
                 context.fillRect(x, y, cellSide, cellSide);
             }
         }
-    },[ cellSide, [JSON.stringify(map)]])
+    },[ [JSON.stringify(map)]])
 
-    const canvasRef = useCanvas(draw);
+    const canvasRef = useCanvas(config, draw);
 
     return <canvas
         ref={canvasRef}
-        style={{ width: '100%', height: '85%', border: '1px solid #000000'}}
+        style={{
+            width: '60%',
+            height: '85%',
+            border: '1px solid #000000'}}
         {...props}
     />
 }

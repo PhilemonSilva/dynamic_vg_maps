@@ -2,6 +2,7 @@ import React, {useEffect, useState, useCallback} from 'react';
 import {Button} from 'semantic-ui-react'
 import Canvas from "../canvas";
 import {log, logImportant} from "../../loggers/InternalLogger";
+import {Wrapper} from "./index.style";
 
 const logConfiguration = (config) => {
     log(`Configuration update: `);
