@@ -10,10 +10,24 @@
       "name": "empty",
       "solid": false,
       "color": "#f1c40f",
-      "spawnChance": 100
+      "spawnChance": 90
     },
     {
       "id": 1,
+      "name": "empty",
+      "solid": false,
+      "color": "#4ae31b",
+      "spawnChance": 5
+    },
+    {
+      "id": 2,
+      "name": "empty",
+      "solid": false,
+      "color": "#7343ba",
+      "spawnChance": 5
+    },
+    {
+      "id": 3,
       "name": "block",
       "solid": true,
       "color": "#e74c3c",

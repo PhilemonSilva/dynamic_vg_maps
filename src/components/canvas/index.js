@@ -7,9 +7,6 @@ const Canvas = ({ config, isGeneratingMap, setIsGeneratingMap, ...props}) => {
 
     const [map, setMap]  = useState([[]]);
 
-    const red = '#e74c3c';
-    const yellow = '#f1c40f';
-
     const generateNewMap = useCallback(()=>{
         if(isGeneratingMap){
             setMap(generateMap(config));
@@ -26,9 +23,7 @@ const Canvas = ({ config, isGeneratingMap, setIsGeneratingMap, ...props}) => {
                 let x = j * cellSide;
                 let y = i * cellSide;
                 context.beginPath();
-                context.fillStyle = yellow;
-                if(map[i][j])
-                    context.fillStyle = red;
+                context.fillStyle = map[i][j].color;
                 context.fillRect(x, y, cellSide, cellSide);
             }
         }

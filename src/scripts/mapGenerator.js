@@ -1,4 +1,5 @@
 import {log} from "../loggers/InternalLogger";
+import _ from 'lodash'
 
 const seedrandom = require('seedrandom');
 let rng = seedrandom();
@@ -19,6 +20,7 @@ const generateMap = (config) => {
     for (let i = 0; i < 5; i++) {
         map = smooth(map);
     }
+    map = fillRoomWithCells(map, config);
     log(`Room created...!`);
     return map;
 }
@@ -39,11 +41,11 @@ const generateRandomRoom = (config) => {
     return map;
 }
 
-const smooth = (map) => {
-    let smoothMap = map
-    for (let x = 0; x < map.length; x++) {
-        for (let y = 0; y < map[x].length; y++) {
-            let solidCellCount = getSurroundingSolidCellCount(map, x, y);
+const smooth = (room) => {
+    let smoothMap = room
+    for (let x = 0; x < room.length; x++) {
+        for (let y = 0; y < room[x].length; y++) {
+            let solidCellCount = getSurroundingSolidCellCount(room, x, y);
             if (solidCellCount > 4)
                 smoothMap[x][y] = true;
             else if (solidCellCount < 4)
@@ -75,12 +77,45 @@ const isOuterRoomWall = (x, y, roomX, roomY, wallWidth) => {
         || (y <= roomY - 1 && y > (roomY - 1 - wallWidth))
 }
 
-const selectCell = (solidCellArray, cellSelector) => {
-    if (solidCellArray.length === 1)
-        return solidCellArray[0];
-    for (let i = 0; i < solidCellArray.length; i++) {
+const fillRoomWithCells = (room, config) =>{
+    let solidCells = config.cellTypes.filter(c => c.solid);
+    solidCells = _.orderBy(solidCells, 'spawnChance', 'desc');
 
+    let nonSolidCells = config.cellTypes.filter(c => !c.solid);
+    nonSolidCells = _.orderBy(nonSolidCells, 'spawnChance', 'desc');
+
+    for (let x = 0; x < room.length; x++) {
+        for (let y = 0; y < room[x].length; y++) {
+            let cellArray = room[x][y] ? solidCells : nonSolidCells;
+            room[x][y] = selectCell(cellArray);
+        }
     }
+    return room;
+}
+
+const selectCell = (cellArray) => {
+    let cellSelector = randomFromInterval(0, 100);
+    if (cellArray.length === 1)
+        return cellArray[0];
+    for (let i = 0; i < cellArray.length; i++) {
+        if(i === cellArray.length - 1)
+            return cellArray[i];
+        let currentCellChance = getCellChance(cellArray, i);
+        if(cellSelector <= currentCellChance){
+            return cellArray[i];
+        }
+    }
+}
+
+const getCellChance = (cellArray, index) => {
+    let cellChance = 0;
+    if(index === 0){
+        return cellArray[index].spawnChance;
+    }
+    for (let i = 0; i <= index; i++) {
+        cellChance += cellArray[i].spawnChance;
+    }
+    return cellChance;
 }
 
 export default generateMap
