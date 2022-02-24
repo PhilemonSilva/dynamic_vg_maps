@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useState} from 'react'
 import useCanvas from "./canvasManager";
-import generateMap from "../../scripts/mapGenerator";
+import generateMap from "../../../scripts/mapGenerator";
 import PropTypes from 'prop-types';
 
 const Canvas = ({ config, isGeneratingMap, setIsGeneratingMap, ...props}) => {

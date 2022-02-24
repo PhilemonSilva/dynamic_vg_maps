@@ -1,8 +1,8 @@
 import React, {useEffect, useState, useCallback} from 'react';
-import {Button} from 'semantic-ui-react'
-import Canvas from "../canvas";
 import {log, logImportant} from "../../loggers/InternalLogger";
-import {Wrapper} from "./index.style";
+
+import Canvas from "./canvas";
+import ConfigurationEditor from "./configurationEditor";
 
 const logConfiguration = (config) => {
     log(`Configuration update: `);
@@ -35,12 +35,12 @@ const ScreenLayout = () => {
             isGeneratingMap={isGeneratingMap}
             setIsGeneratingMap={setIsGeneratingMap}
         />
-        <Button
-            primary
-            onClick={() => setIsGeneratingMap(true)}
-        >
-            RUN
-        </Button>
+        <ConfigurationEditor
+            config={config}
+            setConfig={setConfig}
+            isGeneratingMap={isGeneratingMap}
+            setIsGeneratingMap={setIsGeneratingMap}
+        />
     </>
 }
 
