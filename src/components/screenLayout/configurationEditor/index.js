@@ -1,11 +1,22 @@
 import React, {useEffect, useState, useCallback} from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'semantic-ui-react'
-import {Wrapper} from "./index.style";
+import SeedInput from "./SeedInput";
+import {Wrapper, InputElement} from "./index.style";
 
 
 const ConfigurationEditor = ({config, setConfig, isGeneratingMap, setIsGeneratingMap, ...props}) => {
+
+    const setSeed = (seed) => setConfig(prevState => {return {...prevState, seed: seed }});
+    const setFill = (seed) => setConfig(prevState => {return {...prevState, fill: seed }});
+
     return <Wrapper {...props}>
+        <InputElement>
+            <SeedInput
+                seed={config.seed}
+                setSeed={setSeed}
+            />
+        </InputElement>
         <Button
             positive
             onClick={() => setIsGeneratingMap(true)}
