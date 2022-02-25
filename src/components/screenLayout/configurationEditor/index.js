@@ -17,12 +17,14 @@ const ConfigurationEditor = ({config, setConfig, isGeneratingMap, setIsGeneratin
             <SeedInput
                 seed={config.seed}
                 setSeed={setSeed}
+                disabled={isGeneratingMap}
             />
         </InputElement>
         <InputElement>
             <WallWidthInput
                 wallWidth={config.roomWallMinimumWidth}
                 setWallWidth={setWallWidth}
+                disabled={isGeneratingMap}
             />
         </InputElement>
         <Button

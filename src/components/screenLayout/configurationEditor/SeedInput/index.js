@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input, Popup, Icon } from 'semantic-ui-react'
+import { Input } from 'semantic-ui-react'
 import InfoIcon from "../InfoIcon";
 import PropTypes from 'prop-types';
 
