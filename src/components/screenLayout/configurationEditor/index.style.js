@@ -9,5 +9,5 @@ export const Wrapper = styled.div`
 `;
 
 export const InputElement = styled.div`
-    margin: 5px;
+  margin: 5px;
 `;

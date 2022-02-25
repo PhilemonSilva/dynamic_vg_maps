@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useCallback} from 'react';
+import React from 'react';
 import { Input, Popup, Icon } from 'semantic-ui-react'
 import InfoIcon from "../InfoIcon";
 import PropTypes from 'prop-types';
@@ -8,9 +8,7 @@ const SeedInput = ({ seed, setSeed, ...props }) => {
         <Input
             value={seed}
             onChange={(_,{ value}) => setSeed(value)}
-            label={'Seed: '}
-            // label={{ basic: true, content: 'kg' }}
-            // labelPosition='right'
+            label={{ basic: true, content: 'Seed: '}}
             placeholder='Seed...'
             {...props}
         />
