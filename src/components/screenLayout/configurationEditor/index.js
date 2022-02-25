@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import { Button } from 'semantic-ui-react'
 import SeedInput from "./SeedInput";
 import WallWidthInput from "./WallWidthInput";
+import FillInput from "./FillInput";
 import {Wrapper, InputElement} from "./index.style";
 
 
 const ConfigurationEditor = ({config, setConfig, isGeneratingMap, setIsGeneratingMap, ...props}) => {
 
     const setSeed = (seed) => setConfig(prevState => {return {...prevState, seed: seed }});
-    const setFill = (seed) => setConfig(prevState => {return {...prevState, fill: seed }});
+    const setFill = (fill) => setConfig(prevState => {return {...prevState, fill: fill }});
     const setWallWidth = (width) => setConfig(prevState => {return {...prevState, roomWallMinimumWidth: width }});
 
     return <Wrapper {...props}>
@@ -24,6 +25,13 @@ const ConfigurationEditor = ({config, setConfig, isGeneratingMap, setIsGeneratin
             <WallWidthInput
                 wallWidth={config.roomWallMinimumWidth}
                 setWallWidth={setWallWidth}
+                disabled={isGeneratingMap}
+            />
+        </InputElement>
+        <InputElement>
+            <FillInput
+                fill={config.fill}
+                setFill={setFill}
                 disabled={isGeneratingMap}
             />
         </InputElement>
