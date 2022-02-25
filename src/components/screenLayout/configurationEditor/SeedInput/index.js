@@ -8,9 +8,7 @@ const SeedInput = ({ seed, setSeed, ...props }) => {
         <Input
             value={seed}
             onChange={(_,{ value}) => setSeed(value)}
-            label={'Seed: '}
-            // label={{ basic: true, content: 'kg' }}
-            // labelPosition='right'
+            label={{ basic: true, content: 'Seed: '}}
             placeholder='Seed...'
             {...props}
         />
