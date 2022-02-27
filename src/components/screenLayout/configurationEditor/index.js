@@ -4,6 +4,7 @@ import { Button } from 'semantic-ui-react'
 import SeedInput from "./SeedInput";
 import WallWidthInput from "./WallWidthInput";
 import FillInput from "./FillInput";
+import CellManager from "./CellManager";
 import {Wrapper, InputElement} from "./index.style";
 
 
@@ -12,6 +13,7 @@ const ConfigurationEditor = ({config, setConfig, isGeneratingMap, setIsGeneratin
     const setSeed = (seed) => setConfig(prevState => {return {...prevState, seed: seed }});
     const setFill = (fill) => setConfig(prevState => {return {...prevState, fill: fill }});
     const setWallWidth = (width) => setConfig(prevState => {return {...prevState, roomWallMinimumWidth: width }});
+    const setCells = (cells) => setConfig(prevState => {return {...prevState, cellTypes: cells}})
 
     return <Wrapper {...props}>
         <InputElement>
@@ -32,6 +34,13 @@ const ConfigurationEditor = ({config, setConfig, isGeneratingMap, setIsGeneratin
             <FillInput
                 fill={config.fill}
                 setFill={setFill}
+                disabled={isGeneratingMap}
+            />
+        </InputElement>
+        <InputElement>
+            <CellManager
+                cells={config.cellTypes}
+                setCells={setCells}
                 disabled={isGeneratingMap}
             />
         </InputElement>
