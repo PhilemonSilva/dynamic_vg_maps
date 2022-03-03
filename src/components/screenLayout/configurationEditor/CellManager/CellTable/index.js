@@ -9,24 +9,52 @@ const CellTable = ({ cells, setCells, ...props }) => {
 
     const [cellRows, setCellRows] = useState([]);
 
+    const setCellId = (index, id) => {
+        let newCells = [...cells];
+        newCells[index] = { ...newCells[index], id: id};
+        setCells(newCells);
+    };
+
+    const setCellName = (index, name) => {
+        let newCells = [...cells];
+        newCells[index] = { ...newCells[index], name: name};
+        setCells(newCells);
+    };
+
+    const setCellColor = (index, color) => {
+        let newCells = [...cells];
+        newCells[index] = { ...newCells[index], color: color};
+        setCells(newCells);
+    };
+
+    const setCellSpawnChance = (index, spawnChance) => {
+        let newCells = [...cells];
+        newCells[index] = { ...newCells[index], spawnChance: spawnChance};
+        setCells(newCells);
+    };
+
+
     const generateCellRows = useCallback(()=> {
         setCellRows(
-            cells.map(cell => {
+            cells.map((cell, i) => {
                 return <Table.Row>
                     <Table.Cell collapsing>
                         <CellIdInput
+                            index={i}
                             cellId={cell.id}
-                            setCellId={()=>{ }}
+                            setCellId={setCellId}
                         />
                     </Table.Cell>
                     <Table.Cell>
                         <CellNameInput
+                            index={i}
                             cellName={cell.name}
-                            setCellName={() => { }}
+                            setCellName={setCellName}
                         />
                     </Table.Cell>
                     <Table.Cell collapsing textAlign='center'>
                         <Checkbox
+                            index={i}
                             checked={cell.solid}
                         />
                     </Table.Cell>
@@ -35,7 +63,9 @@ const CellTable = ({ cells, setCells, ...props }) => {
                     </Table.Cell>
                     <Table.Cell collapsing textAlign='center'>
                         <CellSpawnChanceInput
+                            index={i}
                             spawnChance={cell.spawnChance}
+                            setSpawnChance={setCellSpawnChance}
                         />
                     </Table.Cell>
                 </Table.Row>
