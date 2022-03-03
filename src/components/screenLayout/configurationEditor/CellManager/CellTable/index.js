@@ -1,8 +1,52 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Table, Input, Checkbox } from 'semantic-ui-react'
+import CellIdInput from "./CellIdInput";
+import CellNameInput from "./CellNameInput";
+import CellSpawnChanceInput from "./CellSpawnChanceInput";
 import PropTypes from 'prop-types';
 
-const CellTable = ({ text, ...props }) => {
+const CellTable = ({ cells, setCells, ...props }) => {
+
+    const [cellRows, setCellRows] = useState([]);
+
+    const generateCellRows = useCallback(()=> {
+        setCellRows(
+            cells.map(cell => {
+                return <Table.Row>
+                    <Table.Cell collapsing>
+                        <CellIdInput
+                            cellId={cell.id}
+                            setCellId={()=>{ }}
+                        />
+                    </Table.Cell>
+                    <Table.Cell>
+                        <CellNameInput
+                            cellName={cell.name}
+                            setCellName={() => { }}
+                        />
+                    </Table.Cell>
+                    <Table.Cell collapsing textAlign='center'>
+                        <Checkbox
+                            checked={cell.solid}
+                        />
+                    </Table.Cell>
+                    <Table.Cell>
+                        {cell.color}
+                    </Table.Cell>
+                    <Table.Cell collapsing textAlign='center'>
+                        <CellSpawnChanceInput
+                            spawnChance={cell.spawnChance}
+                        />
+                    </Table.Cell>
+                </Table.Row>
+            })
+        );
+
+    }, [JSON.stringify(cells)]);
+    useEffect(()=>{
+        generateCellRows();
+    }, [generateCellRows])
+
     return <Table celled striped>
         <Table.Header>
             <Table.Row>
@@ -15,44 +59,19 @@ const CellTable = ({ text, ...props }) => {
         </Table.Header>
 
         <Table.Body>
-            <Table.Row>
-                <Table.Cell collapsing>
-                    <Input
-                        style={{maxWidth: 80}}
-                        type='number'
-                        value={1}
-                    />
-                </Table.Cell>
-                <Table.Cell>Eusouumnome</Table.Cell>
-                <Table.Cell collapsing textAlign='right'><Checkbox/></Table.Cell>
-                <Table.Cell>cor</Table.Cell>
-                <Table.Cell>90</Table.Cell>
-            </Table.Row>
-            <Table.Row>
-                <Table.Cell collapsing>
-                    <Input
-                    style={{maxWidth: 80}}
-                    type='number'
-                    value={1}
-                />
-                </Table.Cell>
-                <Table.Cell>Eusouumnome</Table.Cell>
-                <Table.Cell collapsing textAlign='right'>
-                    <Checkbox/>
-                </Table.Cell>
-                <Table.Cell>cor</Table.Cell>
-                <Table.Cell>90</Table.Cell>
-            </Table.Row>
+            {cellRows}
         </Table.Body>
     </Table>
 }
 
 CellTable.propTypes = {
-    text: PropTypes.string
+    cells: PropTypes.array,
+    setCells: PropTypes.func
 }
 
 CellTable.defaultProps = {
-    text: ''
+    cells: [],
+    setCells: () => { }
 }
 
 export default CellTable

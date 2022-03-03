@@ -5,23 +5,6 @@ import PropTypes from 'prop-types';
 
 const CellManager = ({ cells, setCells, ...props }) => {
 
-    const [cellRows, setCellRows] = useState([]);
-
-    const generateCellRows = useCallback(()=> {
-        let cellRows = [];
-        setCellRows()
-
-    }, [JSON.stringify(cells)]);
-    useEffect(()=>{
-        generateCellRows();
-    }, [generateCellRows])
-
-
-
-    const Level1Content = (
-        <CellTable/>
-    );
-
     return <Accordion
         styled
         fluid
@@ -31,7 +14,11 @@ const CellManager = ({ cells, setCells, ...props }) => {
                 key: 'panel-1',
                 title: 'Cells',
                 content: {
-                    content: Level1Content
+                    content:
+                        <CellTable
+                            cells={cells}
+                            setCells={setCells}
+                        />
                 }
             }]
         }
