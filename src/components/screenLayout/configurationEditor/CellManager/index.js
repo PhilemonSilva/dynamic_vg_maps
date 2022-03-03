@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Accordion, Table } from 'semantic-ui-react'
-import InfoIcon from "../InfoIcon";
+import { Accordion } from 'semantic-ui-react';
+import CellTable from "./CellTable";
 import PropTypes from 'prop-types';
 
 const CellManager = ({ cells, setCells, ...props }) => {
@@ -19,9 +19,7 @@ const CellManager = ({ cells, setCells, ...props }) => {
 
 
     const Level1Content = (
-        <Table>
-
-        </Table>
+        <CellTable/>
     );
 
     return <Accordion

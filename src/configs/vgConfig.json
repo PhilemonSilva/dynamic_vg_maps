@@ -14,14 +14,14 @@
     },
     {
       "id": 1,
-      "name": "empty",
+      "name": "ouro",
       "solid": false,
       "color": "#4ae31b",
       "spawnChance": 5
     },
     {
       "id": 2,
-      "name": "empty",
+      "name": "inimigo",
       "solid": false,
       "color": "#7343ba",
       "spawnChance": 5
