@@ -4,6 +4,7 @@ import CellIdInput from "./CellIdInput";
 import CellNameInput from "./CellNameInput";
 import CellSpawnChanceInput from "./CellSpawnChanceInput";
 import InfoIcon from "../../InfoIcon";
+import CellColorPicker from "./CellColorPicker";
 import './index.style.css';
 import PropTypes from 'prop-types';
 
@@ -61,7 +62,11 @@ const CellTable = ({ cells, setCells, ...props }) => {
                         />
                     </Table.Cell>
                     <Table.Cell collapsing>
-                        {cell.color}
+                        <CellColorPicker
+                            index={i}
+                            color={cell.color}
+                            setColor={setCellColor}
+                        />
                     </Table.Cell>
                     <Table.Cell collapsing textAlign='left'>
                         <CellSpawnChanceInput
