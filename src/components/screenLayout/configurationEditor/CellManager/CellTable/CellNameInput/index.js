@@ -8,6 +8,7 @@ const CellNameInput = ({ index, cellName, setCellName, ...props }) => {
             value={cellName}
             onChange={(_,{ value}) => setCellName(index, value)}
             placeholder='wall...'
+            size={"small"}
             {...props}
         />
     </>

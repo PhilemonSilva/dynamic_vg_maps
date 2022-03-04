@@ -3,6 +3,8 @@ import { Table, Input, Checkbox } from 'semantic-ui-react'
 import CellIdInput from "./CellIdInput";
 import CellNameInput from "./CellNameInput";
 import CellSpawnChanceInput from "./CellSpawnChanceInput";
+import InfoIcon from "../../InfoIcon";
+import './index.style.css';
 import PropTypes from 'prop-types';
 
 const CellTable = ({ cells, setCells, ...props }) => {
@@ -45,7 +47,7 @@ const CellTable = ({ cells, setCells, ...props }) => {
                             setCellId={setCellId}
                         />
                     </Table.Cell>
-                    <Table.Cell>
+                    <Table.Cell collapsing>
                         <CellNameInput
                             index={i}
                             cellName={cell.name}
@@ -58,10 +60,10 @@ const CellTable = ({ cells, setCells, ...props }) => {
                             checked={cell.solid}
                         />
                     </Table.Cell>
-                    <Table.Cell>
+                    <Table.Cell collapsing>
                         {cell.color}
                     </Table.Cell>
-                    <Table.Cell collapsing textAlign='center'>
+                    <Table.Cell collapsing textAlign='left'>
                         <CellSpawnChanceInput
                             index={i}
                             spawnChance={cell.spawnChance}
@@ -77,14 +79,47 @@ const CellTable = ({ cells, setCells, ...props }) => {
         generateCellRows();
     }, [generateCellRows])
 
-    return <Table celled striped>
+    return <Table
+        celled
+        collapsing
+        striped
+        size='small'
+    >
         <Table.Header>
             <Table.Row>
-                <Table.HeaderCell>Id</Table.HeaderCell>
-                <Table.HeaderCell>Name</Table.HeaderCell>
-                <Table.HeaderCell>Solid</Table.HeaderCell>
-                <Table.HeaderCell>Color</Table.HeaderCell>
-                <Table.HeaderCell>Spawn Chance (%)</Table.HeaderCell>
+                <Table.HeaderCell className='no-line-break'>
+                    Id
+                    <InfoIcon
+                        text={'The unique identifier of the cell. Useful for exporting the data'}
+                    />
+                </Table.HeaderCell>
+                <Table.HeaderCell className='no-line-break'>
+                    Name
+                    <InfoIcon
+                        text={'The descriptor of the cell. Useful for exporting the data'}
+                    />
+                </Table.HeaderCell>
+                <Table.HeaderCell className='no-line-break'>
+                    Solid
+                    <InfoIcon
+                        text={'Identifies the cell as a solid cell (generated as the walls of the map)' +
+                        ' or a non-solid cell (generated as the path)'}
+                    />
+                </Table.HeaderCell>
+                <Table.HeaderCell className='no-line-break'>
+                    Color
+                    <InfoIcon
+                        text={'Color displayed for the cell on the Dynamic VG Maps editor.'}
+                    />
+                </Table.HeaderCell>
+                <Table.HeaderCell className='no-line-break'>
+                    Spawn Chance (%)
+                    <InfoIcon
+                        text={'Chance of the cell spawn. ' +
+                        'The sum of the solid cell spawns must be 100%, ' +
+                        'the same also goes for the non-solid cells '}
+                    />
+                </Table.HeaderCell>
             </Table.Row>
         </Table.Header>
 

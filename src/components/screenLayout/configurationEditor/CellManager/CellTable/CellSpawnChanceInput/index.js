@@ -6,9 +6,13 @@ const CellSpawnChanceInput = ({ index, spawnChance, setSpawnChance, ...props }) 
     return <>
         <Input
             value={spawnChance}
-            onChange={(_,{ value}) => setSpawnChance(index, parseInt(value))}
+            onChange={(_,{ value}) => setSpawnChance(index, parseFloat(value))}
             type='number'
-            style={{maxWidth: 60}}
+            size={"small"}
+            step='.01'
+            label='%'
+            labelPosition={"right"}
+            style={{maxWidth: 90}}
         />
     </>
 

@@ -5,10 +5,11 @@ import PropTypes from 'prop-types';
 const CellIdInput = ({ index, cellId, setCellId, ...props }) => {
     return <>
         <Input
-            style={{maxWidth: 80}}
-            type='number'
             value={cellId}
             onChange={(_,{ value}) => {setCellId(index, parseInt(value))}}
+            size={"small"}
+            type='number'
+            style={{maxWidth: 80}}
         />
     </>
 

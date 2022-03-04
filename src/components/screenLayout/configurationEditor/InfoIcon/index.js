@@ -11,6 +11,7 @@ const InfoIcon = ({ text, ...props }) => {
                 disabled
                 name='question circle outline'
                 size='large'
+                style={{marginLeft: '5px'}}
                 {...props}
             />
         }
