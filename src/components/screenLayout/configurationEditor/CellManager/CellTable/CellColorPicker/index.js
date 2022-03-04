@@ -17,15 +17,18 @@ const CellColorPicker = ({ index, name, color, setColor, ...props }) => {
             />
         }
         closeIcon
-        size='mini'
+        size='small'
         centered={false}
+        dimmer='inverted'
     >
-        <Modal.Header>Select color for Cell {name}</Modal.Header>
-        <Modal.Content>
+        <Modal.Header>Select color for Cell {name}:</Modal.Header>
+        <Modal.Content >
             <HexColorPicker
                 color={color}
                 onChange={(selectedColor) => setColor(index, selectedColor)}
             />
+
+
         </Modal.Content>
 
     </Modal>

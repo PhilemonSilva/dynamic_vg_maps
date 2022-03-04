@@ -64,6 +64,7 @@ const CellTable = ({ cells, setCells, ...props }) => {
                     <Table.Cell collapsing>
                         <CellColorPicker
                             index={i}
+                            name={cell.name}
                             color={cell.color}
                             setColor={setCellColor}
                         />
