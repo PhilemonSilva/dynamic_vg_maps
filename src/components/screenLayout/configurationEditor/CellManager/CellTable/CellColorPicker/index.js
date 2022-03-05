@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, Button } from 'semantic-ui-react';
 import { HexColorPicker } from 'react-colorful'
-import { ColorBox } from "./index.style";
+import { ColorBox, ModalContentContainer } from "./index.style";
 import PropTypes from 'prop-types';
 
 const CellColorPicker = ({ index, name, color, setColor, ...props }) => {
@@ -16,19 +16,18 @@ const CellColorPicker = ({ index, name, color, setColor, ...props }) => {
                 style={{backgroundColor: color}}
             />
         }
-        closeIcon
         size='small'
         centered={false}
         dimmer='inverted'
     >
         <Modal.Header>Select color for Cell {name}:</Modal.Header>
         <Modal.Content >
-            <HexColorPicker
-                color={color}
-                onChange={(selectedColor) => setColor(index, selectedColor)}
-            />
-
-
+            <ModalContentContainer>
+                <HexColorPicker
+                    color={color}
+                    onChange={(selectedColor) => setColor(selectedColor)}
+                />
+            </ModalContentContainer>
         </Modal.Content>
 
     </Modal>

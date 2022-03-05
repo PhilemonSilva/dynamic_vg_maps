@@ -1,10 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Table, Input, Checkbox } from 'semantic-ui-react'
-import CellIdInput from "./CellIdInput";
-import CellNameInput from "./CellNameInput";
-import CellSpawnChanceInput from "./CellSpawnChanceInput";
+import { Table } from 'semantic-ui-react'
 import InfoIcon from "../../InfoIcon";
-import CellColorPicker from "./CellColorPicker";
+import CellRow from "./CellRow";
 import './index.style.css';
 import PropTypes from 'prop-types';
 
@@ -12,71 +9,15 @@ const CellTable = ({ cells, setCells, ...props }) => {
 
     const [cellRows, setCellRows] = useState([]);
 
-    const setCellId = (index, id) => {
-        let newCells = [...cells];
-        newCells[index] = { ...newCells[index], id: id};
-        setCells(newCells);
-    };
-
-    const setCellName = (index, name) => {
-        let newCells = [...cells];
-        newCells[index] = { ...newCells[index], name: name};
-        setCells(newCells);
-    };
-
-    const setCellColor = (index, color) => {
-        let newCells = [...cells];
-        newCells[index] = { ...newCells[index], color: color};
-        setCells(newCells);
-    };
-
-    const setCellSpawnChance = (index, spawnChance) => {
-        let newCells = [...cells];
-        newCells[index] = { ...newCells[index], spawnChance: spawnChance};
-        setCells(newCells);
-    };
-
-
     const generateCellRows = useCallback(()=> {
         setCellRows(
             cells.map((cell, i) => {
-                return <Table.Row>
-                    <Table.Cell collapsing>
-                        <CellIdInput
-                            index={i}
-                            cellId={cell.id}
-                            setCellId={setCellId}
-                        />
-                    </Table.Cell>
-                    <Table.Cell collapsing>
-                        <CellNameInput
-                            index={i}
-                            cellName={cell.name}
-                            setCellName={setCellName}
-                        />
-                    </Table.Cell>
-                    <Table.Cell collapsing textAlign='center'>
-                        <Checkbox
-                            index={i}
-                            checked={cell.solid}
-                        />
-                    </Table.Cell>
-                    <Table.Cell collapsing>
-                        <CellColorPicker
-                            index={i}
-                            name={cell.name}
-                            color={cell.color}
-                            setColor={setCellColor}
-                        />
-                    </Table.Cell>
-                    <Table.Cell collapsing textAlign='left'>
-                        <CellSpawnChanceInput
-                            index={i}
-                            spawnChance={cell.spawnChance}
-                            setSpawnChance={setCellSpawnChance}
-                        />
-                    </Table.Cell>
-                </Table.Row>
+                return <CellRow
+                    cells={cells}
+                    setCells={setCells}
+                    index={i}
+                    cell={cell}
+                />
             })
         );
 
@@ -90,6 +31,7 @@ const CellTable = ({ cells, setCells, ...props }) => {
         collapsing
         striped
         size='small'
+        {...props}
     >
         <Table.Header>
             <Table.Row>

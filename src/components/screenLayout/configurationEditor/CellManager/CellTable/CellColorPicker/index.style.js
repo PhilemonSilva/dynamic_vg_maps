@@ -7,3 +7,9 @@ export const ColorBox = styled.div`
   height: 3px;
   cursor: pointer;
 `;
+
+export const ModalContentContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+`;
