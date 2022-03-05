@@ -2,17 +2,36 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Table } from 'semantic-ui-react'
 import InfoIcon from "../../InfoIcon";
 import CellRow from "./CellRow";
+import sum from '../../../../../util/array'
 import './index.style.css';
 import PropTypes from 'prop-types';
 
 const CellTable = ({ cells, setCells, ...props }) => {
 
     const [cellRows, setCellRows] = useState([]);
+    const [solidCellsAreValid, setSolidCellsAreValid] = useState(false);
+    const [nonSolidCellsAreValid, setNonSolidCellsAreValid] = useState(false);
+
+    const validateCells = useCallback(() => {
+        let solidSpawnSum = sum(cells.filter(c => c.solid), 'spawnChance');
+        let nonSolidSpawnSum = sum(cells.filter(c => !c.solid), 'spawnChance');
+        setSolidCellsAreValid( (solidSpawnSum === 100));
+        setNonSolidCellsAreValid((nonSolidSpawnSum === 100));
+    }, [JSON.stringify(cells)]);
+    useEffect(() => {
+        validateCells();
+    }, [validateCells])
+
+    const rowHasWarning = (cell) => {
+        return (cell.solid && !solidCellsAreValid)
+            || ((!cell.solid) && nonSolidCellsAreValid)
+    }
 
     const generateCellRows = useCallback(()=> {
         setCellRows(
             cells.map((cell, i) => {
                 return <CellRow
+                    warning={rowHasWarning(cell)}
                     cells={cells}
                     setCells={setCells}
                     index={i}
@@ -21,7 +40,7 @@ const CellTable = ({ cells, setCells, ...props }) => {
             })
         );
 
-    }, [JSON.stringify(cells)]);
+    }, [JSON.stringify(cells), solidCellsAreValid]);
     useEffect(()=>{
         generateCellRows();
     }, [generateCellRows])

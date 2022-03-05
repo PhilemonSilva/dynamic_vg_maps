@@ -6,7 +6,7 @@ const CellIdInput = ({ index, cellId, setCellId, ...props }) => {
     return <>
         <Input
             value={cellId}
-            onChange={(_,{ value}) => {setCellId(index, parseInt(value))}}
+            onChange={(_,{ value}) => {setCellId(parseInt(value))}}
             size={"small"}
             type='number'
             style={{maxWidth: 80}}

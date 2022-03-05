@@ -6,7 +6,7 @@ const CellSpawnChanceInput = ({ index, spawnChance, setSpawnChance, ...props }) 
     return <>
         <Input
             value={spawnChance}
-            onChange={(_,{ value}) => setSpawnChance(index, parseFloat(value))}
+            onChange={(_,{ value}) => setSpawnChance(parseFloat(value))}
             type='number'
             size={"small"}
             step='.01'
