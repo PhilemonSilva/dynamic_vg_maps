@@ -49,7 +49,6 @@ const CellTable = ({ cells, setCells, ...props }) => {
     return <Table
         celled
         collapsing
-        striped
         size='small'
         {...props}
     >

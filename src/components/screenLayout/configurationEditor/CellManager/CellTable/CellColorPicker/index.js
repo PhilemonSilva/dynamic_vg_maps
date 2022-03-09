@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Modal, Button } from 'semantic-ui-react';
 import { HexColorPicker } from 'react-colorful'
-import { ColorBox, ModalContentContainer } from "./index.style";
+import { ModalContentContainer } from "./index.style";
 import PropTypes from 'prop-types';
 
 const CellColorPicker = ({ index, name, color, setColor, ...props }) => {
@@ -12,13 +12,17 @@ const CellColorPicker = ({ index, name, color, setColor, ...props }) => {
         onOpen={() => setModalOpen(true)}
         open={modalOpen}
         trigger={
-            <ColorBox
-                style={{backgroundColor: color}}
-            />
+            <Button
+                style={{backgroundColor: color, color: 'white'}}
+                size={'tiny'}
+            >
+                {color}
+            </Button>
         }
         size='small'
         centered={false}
         dimmer='inverted'
+        {...props}
     >
         <Modal.Header>Select color for Cell {name}:</Modal.Header>
         <Modal.Content >
