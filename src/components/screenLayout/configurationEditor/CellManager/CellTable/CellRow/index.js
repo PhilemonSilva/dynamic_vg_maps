@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Checkbox } from 'semantic-ui-react'
+import { Table, Checkbox, Button } from 'semantic-ui-react'
 import PropTypes from 'prop-types';
 import CellIdInput from "../CellIdInput";
 import CellNameInput from "../CellNameInput";
@@ -18,7 +18,15 @@ const CellRow = ({ cells, setCells, index, cell, ...props }) => {
         return (value) => setCellProp(prop, value);
     }
 
-    return <Table.Row {...props}>
+    const removeCurrentCell = () => {
+        let newCells = [...cells];
+        newCells.splice(index,1);
+        setCells(newCells);
+    }
+
+    return <Table.Row
+        {...props}
+    >
         <Table.Cell collapsing>
             <CellIdInput
                 index={index}
@@ -37,6 +45,7 @@ const CellRow = ({ cells, setCells, index, cell, ...props }) => {
             <Checkbox
                 index={index}
                 checked={cell.solid}
+                onChange={(_, data) => setCellProp('solid', data.checked)}
             />
         </Table.Cell>
         <Table.Cell collapsing>
@@ -52,6 +61,16 @@ const CellRow = ({ cells, setCells, index, cell, ...props }) => {
                 index={index}
                 spawnChance={cell.spawnChance}
                 setSpawnChance={getPropChangeHandler('spawnChance')}
+            />
+        </Table.Cell>
+        <Table.Cell collapsing textAlign='center'>
+            <Button
+                compact
+                negative
+                circular
+                size={'tiny'}
+                onClick={removeCurrentCell}
+                icon={'minus'}
             />
         </Table.Cell>
     </Table.Row>

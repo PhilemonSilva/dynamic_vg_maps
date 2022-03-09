@@ -31,16 +31,17 @@ const CellTable = ({ cells, setCells, ...props }) => {
         setCellRows(
             cells.map((cell, i) => {
                 return <CellRow
+                    key={i}
+                    index={i}
                     warning={rowHasWarning(cell)}
                     cells={cells}
                     setCells={setCells}
-                    index={i}
                     cell={cell}
                 />
             })
         );
 
-    }, [JSON.stringify(cells), solidCellsAreValid, nonSolidCellsAreValid, rowHasWarning]);
+    }, [JSON.stringify(cells), solidCellsAreValid, nonSolidCellsAreValid]);
     useEffect(()=>{
         generateCellRows();
     }, [generateCellRows])
@@ -85,6 +86,11 @@ const CellTable = ({ cells, setCells, ...props }) => {
                         text={'Chance of the cell spawn. ' +
                         'The sum of the solid cell spawns must be 100%, ' +
                         'the same also goes for the non-solid cells '}
+                    />
+                </Table.HeaderCell>
+                <Table.HeaderCell className='no-line-break'>
+                    <InfoIcon
+                        text={'Add or remove cells'}
                     />
                 </Table.HeaderCell>
             </Table.Row>
