@@ -24,7 +24,7 @@ const CellTable = ({ cells, setCells, ...props }) => {
 
     const rowHasWarning = (cell) => {
         return (cell.solid && !solidCellsAreValid)
-            || ((!cell.solid) && nonSolidCellsAreValid)
+            || ((!cell.solid) && !nonSolidCellsAreValid)
     }
 
     const generateCellRows = useCallback(()=> {
@@ -40,7 +40,7 @@ const CellTable = ({ cells, setCells, ...props }) => {
             })
         );
 
-    }, [JSON.stringify(cells), solidCellsAreValid]);
+    }, [JSON.stringify(cells), solidCellsAreValid, nonSolidCellsAreValid, rowHasWarning]);
     useEffect(()=>{
         generateCellRows();
     }, [generateCellRows])

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Popup, Icon, Table, Checkbox} from 'semantic-ui-react'
+import { Table, Checkbox } from 'semantic-ui-react'
 import PropTypes from 'prop-types';
 import CellIdInput from "../CellIdInput";
 import CellNameInput from "../CellNameInput";
@@ -8,25 +8,29 @@ import CellSpawnChanceInput from "../CellSpawnChanceInput";
 
 const CellRow = ({ cells, setCells, index, cell, ...props }) => {
 
-    const setCellProp = (index, property, value) => {
+    const setCellProp = (property, value) => {
         let newCells = [...cells];
         newCells[index][property] = value;
         setCells(newCells);
     };
+
+    const getPropChangeHandler = (prop) => {
+        return (value) => setCellProp(prop, value);
+    }
 
     return <Table.Row {...props}>
         <Table.Cell collapsing>
             <CellIdInput
                 index={index}
                 cellId={cell.id}
-                setCellId={value => setCellProp(index, 'id', value)}
+                setCellId={getPropChangeHandler('id')}
             />
         </Table.Cell>
         <Table.Cell collapsing>
             <CellNameInput
                 index={index}
                 cellName={cell.name}
-                setCellName={value => setCellProp(index, 'name', value)}
+                setCellName={getPropChangeHandler('name')}
             />
         </Table.Cell>
         <Table.Cell collapsing textAlign='center'>
@@ -40,14 +44,14 @@ const CellRow = ({ cells, setCells, index, cell, ...props }) => {
                 index={index}
                 name={cell.name}
                 color={cell.color}
-                setColor={value => setCellProp(index, 'color', value)}
+                setColor={getPropChangeHandler('color')}
             />
         </Table.Cell>
         <Table.Cell collapsing textAlign='left'>
             <CellSpawnChanceInput
                 index={index}
                 spawnChance={cell.spawnChance}
-                setSpawnChance={value => setCellProp(index, 'spawnChance', value)}
+                setSpawnChance={getPropChangeHandler('spawnChance')}
             />
         </Table.Cell>
     </Table.Row>
