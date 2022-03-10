@@ -1,4 +1,5 @@
 import {log} from "../loggers/InternalLogger";
+import Directions from '../util/directionEnum'
 import _ from 'lodash'
 
 const seedrandom = require('seedrandom');
@@ -16,13 +17,14 @@ const generateMap = (config) => {
         rng = seedrandom(config.seed);
     }
     log(`Creating ${config.xCount}x${config.yCount} room...`);
-    let map = generateRandomRoom(config);
+    let room = generateRandomRoom(config);
     for (let i = 0; i < 5; i++) {
-        map = smooth(map);
+        room = smooth(room);
     }
-    map = fillRoomWithCells(map, config);
+    //room = createPaths(room, 1,[Directions.UP, Directions.RIGHT])
+    room = fillRoomWithCells(room, config);
     log(`Room created...!`);
-    return map;
+    return room;
 }
 
 const generateRandomRoom = (config) => {
@@ -75,6 +77,69 @@ const isOuterRoomWall = (x, y, roomX, roomY, wallWidth) => {
         || (x <= roomX - 1 && x > (roomX - 1 - wallWidth))
         || (y >= 0 && y < wallWidth)
         || (y <= roomY - 1 && y > (roomY - 1 - wallWidth))
+}
+
+const createPaths = (room, pathSize, openings) => {
+    if((!openings) || pathSize <= 0)
+        return room;
+
+    for (let i = 0; i < openings.length; i++) {
+        switch (openings[i]){
+            case Directions.UP:
+                room = clearPathUp(room, pathSize);
+                break;
+            case Directions.DOWN:
+                room = clearPathDown(room, pathSize);
+                break;
+            case Directions.LEFT:
+                room = clearPathLeft(room, pathSize);
+                break;
+            case Directions.RIGHT:
+                room = clearPathRight(room, pathSize);
+                break;
+            default:
+        }
+    }
+    return room;
+}
+
+const clearPathUp = (room, pathSize) => {
+    debugger;
+    for(let x = 0; x < room.length; x++) {
+        for(let y = 0; y<room[x].length; y++) {
+            room[x][y] = !(
+                x <= Math.floor(room.length / 2) &&
+                y >= Math.floor(room[x].length / 2) - Math.floor((pathSize -1) /2) &&
+                y <= Math.floor(room[x].length / 2) + Math.floor((pathSize -1) /2)
+            );
+        }
+    }
+    return room;
+}
+
+const clearPathDown = (room, pathSize) =>{
+
+}
+
+const clearPathLeft = (room, pathSize) =>{
+
+}
+
+const clearPathRight = (room, pathSize) =>{
+
+}
+
+const isPath = (x, y, pathSize, direction) => {
+    switch (direction){
+        case Directions.UP:
+            return //x === (room.length / 2) && y <= (room[x].length / 2);
+        case Directions.DOWN:
+            return;
+        case Directions.LEFT:
+            return;
+        case Directions.RIGHT:
+            return;
+    }
 }
 
 const fillRoomWithCells = (room, config) =>{
