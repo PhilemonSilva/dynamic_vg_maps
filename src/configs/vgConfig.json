@@ -4,6 +4,7 @@
   "fill": 40,
   "seed": "",
   "roomWallMinimumWidth": 2,
+  "pathWidth": 3,
   "cellTypes" : [
     {
       "id": 0,

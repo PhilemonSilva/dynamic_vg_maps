@@ -53,6 +53,7 @@ Canvas.defaultProps = {
         yCount: 100,
         roomWallMinimumWidth: 2,
         fill: 40,
+        pathWidth: 3,
         cellTypes: []
     },
     isGeneratingMap: false,

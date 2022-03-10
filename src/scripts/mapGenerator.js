@@ -11,6 +11,8 @@ const randomFromInterval = (min, max) => {
 }
 
 const generateMap = (config) => {
+    let openings = [Directions.UP, Directions.DOWN, Directions.LEFT, Directions.RIGHT];
+
     if (!config.cellTypes || config.cellTypes.length <= 0)
         return [];
     if (config.seed) {
@@ -18,10 +20,12 @@ const generateMap = (config) => {
     }
     log(`Creating ${config.xCount}x${config.yCount} room...`);
     let room = generateRandomRoom(config);
+
+    room = createPaths(room, config.pathWidth, openings);
+
     for (let i = 0; i < 5; i++) {
         room = smooth(room);
     }
-    //room = createPaths(room, 1,[Directions.UP, Directions.RIGHT])
     room = fillRoomWithCells(room, config);
     log(`Room created...!`);
     return room;
@@ -84,61 +88,46 @@ const createPaths = (room, pathSize, openings) => {
         return room;
 
     for (let i = 0; i < openings.length; i++) {
-        switch (openings[i]){
-            case Directions.UP:
-                room = clearPathUp(room, pathSize);
-                break;
-            case Directions.DOWN:
-                room = clearPathDown(room, pathSize);
-                break;
-            case Directions.LEFT:
-                room = clearPathLeft(room, pathSize);
-                break;
-            case Directions.RIGHT:
-                room = clearPathRight(room, pathSize);
-                break;
-            default:
-        }
+        clearPathUp(room, pathSize, openings[i]);
     }
     return room;
 }
 
-const clearPathUp = (room, pathSize) => {
-    debugger;
+const clearPathUp = (inputRoom, pathSize, directions) => {
+    let room = inputRoom;
     for(let x = 0; x < room.length; x++) {
         for(let y = 0; y<room[x].length; y++) {
-            room[x][y] = !(
-                x <= Math.floor(room.length / 2) &&
-                y >= Math.floor(room[x].length / 2) - Math.floor((pathSize -1) /2) &&
-                y <= Math.floor(room[x].length / 2) + Math.floor((pathSize -1) /2)
-            );
+            if(isPath(room, x, y, pathSize, directions)){
+                room[x][y] = false;
+            }
         }
     }
     return room;
 }
 
-const clearPathDown = (room, pathSize) =>{
+const isPath = (room, x, y, pathSize, direction) => {
 
-}
+    let middleX = Math.floor(room.length / 2);
+    let middleY = Math.floor(room[x].length / 2);
+    let halfPathDistance = Math.floor((pathSize -1) /2);
 
-const clearPathLeft = (room, pathSize) =>{
-
-}
-
-const clearPathRight = (room, pathSize) =>{
-
-}
-
-const isPath = (x, y, pathSize, direction) => {
     switch (direction){
         case Directions.UP:
-            return //x === (room.length / 2) && y <= (room[x].length / 2);
+            return x <= middleX &&
+                y >= middleY - halfPathDistance &&
+                y <= middleY + halfPathDistance;
         case Directions.DOWN:
-            return;
+            return x >= middleX &&
+                y >= middleY - halfPathDistance &&
+                y <= middleY + halfPathDistance;
         case Directions.LEFT:
-            return;
+            return y <= middleY &&
+                x >= middleX - halfPathDistance &&
+                x <= middleX + halfPathDistance;
         case Directions.RIGHT:
-            return;
+            return y >= middleY &&
+                x >= middleX - halfPathDistance &&
+                x <= middleX + halfPathDistance;
     }
 }
 
