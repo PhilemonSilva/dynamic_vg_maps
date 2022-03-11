@@ -5,6 +5,7 @@
   "seed": "",
   "roomWallMinimumWidth": 2,
   "pathWidth": 3,
+  "organicPaths": true,
   "cellTypes" : [
     {
       "id": 0,
