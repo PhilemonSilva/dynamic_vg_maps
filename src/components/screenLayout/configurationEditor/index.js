@@ -5,6 +5,7 @@ import SeedInput from "./SeedInput";
 import WallWidthInput from "./WallWidthInput";
 import FillInput from "./FillInput";
 import CellManager from "./CellManager";
+import PathWidthInput from "./PathWidthInput";
 import {Wrapper, InputElement} from "./index.style";
 
 
@@ -13,6 +14,7 @@ const ConfigurationEditor = ({config, setConfig, isGeneratingMap, setIsGeneratin
     const setSeed = (seed) => setConfig(prevState => {return {...prevState, seed: seed }});
     const setFill = (fill) => setConfig(prevState => {return {...prevState, fill: fill }});
     const setWallWidth = (width) => setConfig(prevState => {return {...prevState, roomWallMinimumWidth: width }});
+    const setPathWidth = (width) => setConfig(prevState => {return {...prevState, pathWidth: width}})
     const setCells = (cells) => setConfig(prevState => {return {...prevState, cellTypes: cells}})
 
     return <Wrapper {...props}>
@@ -27,6 +29,13 @@ const ConfigurationEditor = ({config, setConfig, isGeneratingMap, setIsGeneratin
             <WallWidthInput
                 wallWidth={config.roomWallMinimumWidth}
                 setWallWidth={setWallWidth}
+                disabled={isGeneratingMap}
+            />
+        </InputElement>
+        <InputElement>
+            <PathWidthInput
+                pathWidth={config.pathWidth}
+                setPathWidth={setPathWidth}
                 disabled={isGeneratingMap}
             />
         </InputElement>
