@@ -14,6 +14,7 @@ const ConfigurationEditor = ({config, setConfig, isGeneratingMap, setIsGeneratin
     const setSeed = (seed) => setConfig(prevState => {return {...prevState, seed: seed }});
     const setFill = (fill) => setConfig(prevState => {return {...prevState, fill: fill }});
     const setWallWidth = (width) => setConfig(prevState => {return {...prevState, roomWallMinimumWidth: width }});
+    const setOrganicPaths = (areOrganic) => setConfig(prevState => {return {...prevState, organicPaths: areOrganic }});
     const setPathWidth = (width) => setConfig(prevState => {return {...prevState, pathWidth: width}})
     const setCells = (cells) => setConfig(prevState => {return {...prevState, cellTypes: cells}})
 

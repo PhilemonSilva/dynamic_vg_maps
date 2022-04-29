@@ -1,5 +1,5 @@
 import {log} from "../loggers/InternalLogger";
-import Directions from '../util/directionEnum'
+import generatePath from './pathGenerator'
 import _ from 'lodash'
 
 const seedrandom = require('seedrandom');
@@ -19,7 +19,7 @@ const generateRoom = (config, dimensions, openings) => {
     log(`Creating ${dimensions.x}x${dimensions.y} room...`);
     let room = generateRandomRoom(config, dimensions.x, dimensions.y);
 
-    room = createPaths(room, config.pathWidth, openings);
+    room = generatePath(config.seed, room, config.pathWidth, openings, null);
 
     for (let i = 0; i < 5; i++) {
         room = smooth(room);
@@ -81,53 +81,21 @@ const isOuterRoomWall = (x, y, roomX, roomY, wallWidth) => {
         || (y <= roomY - 1 && y > (roomY - 1 - wallWidth))
 }
 
-const createPaths = (room, pathSize, openings) => {
-    if((!openings) || pathSize <= 0)
-        return room;
 
-    for (let i = 0; i < openings.length; i++) {
-        clearPathUp(room, pathSize, openings[i]);
-    }
-    return room;
-}
 
-const clearPathUp = (inputRoom, pathSize, directions) => {
-    let room = inputRoom;
-    for(let x = 0; x < room.length; x++) {
-        for(let y = 0; y<room[x].length; y++) {
-            if(isPath(room, x, y, pathSize, directions)){
-                room[x][y] = false;
-            }
-        }
-    }
-    return room;
-}
-
-const isPath = (room, x, y, pathSize, direction) => {
-
-    let middleX = Math.floor(room.length / 2);
-    let middleY = Math.floor(room[x].length / 2);
-    let halfPathDistance = Math.floor((pathSize -1) /2);
-
-    switch (direction){
-        case Directions.UP:
-            return x <= middleX &&
-                y >= middleY - halfPathDistance &&
-                y <= middleY + halfPathDistance;
-        case Directions.DOWN:
-            return x >= middleX &&
-                y >= middleY - halfPathDistance &&
-                y <= middleY + halfPathDistance;
-        case Directions.LEFT:
-            return y <= middleY &&
-                x >= middleX - halfPathDistance &&
-                x <= middleX + halfPathDistance;
-        case Directions.RIGHT:
-            return y >= middleY &&
-                x >= middleX - halfPathDistance &&
-                x <= middleX + halfPathDistance;
-    }
-}
+// const generateOrganicPathCells = (room, x, y) => {
+//     for(let i = 0, solidChance = 0; i < 3; i++, solidChance+25) {
+//         let xOutOfBounds = x < 0 || x > room.length - 1;
+//
+//         if(xOutOfBounds || yOutOfBounds || solidChance >= 100) {
+//             return;
+//         }
+//     }
+//     let solidChance = 50;
+//     let value = randomFromInterval(0, 100);
+//     room[x][y] = value < solidChance;
+//
+// }
 
 const fillRoomWithCells = (room, config) =>{
     let solidCells = config.cellTypes.filter(c => c.solid);
