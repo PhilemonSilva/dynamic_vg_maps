@@ -66,8 +66,8 @@ const isPath = (x, y, pathSize, direction) => {
 }
 
 const generateOrganicPath = (x, y) => {
-    for (let i = x - 3; i <= x + 3; i++) {
-        for (let j = y - 3; j <= y + 3; j++) {
+    for (let i = x - 4; i <= x + 4; i++) {
+        for (let j = y - 4; j <= y + 4; j++) {
             if (isOutOfBounds(i,j)) {
                 continue;
             }

@@ -1,6 +1,7 @@
 import React, {useCallback, useEffect, useState} from 'react'
 import useCanvas from "./canvasManager";
 import generateRoom from "../../../scripts/roomGenerator";
+import generateMap from "../../../scripts/mapGenerator";
 import PropTypes from 'prop-types';
 import Directions from "../../../util/directionEnum";
 
@@ -10,10 +11,7 @@ const Canvas = ({ config, isGeneratingMap, setIsGeneratingMap, ...props}) => {
 
     const generateNewMap = useCallback(()=>{
         if(isGeneratingMap){
-            let openings = [Directions.UP, Directions.DOWN, Directions.LEFT, Directions.RIGHT];
-            let dimensions = {x:config.xCount, y: config.yCount}
-
-            setMap(generateRoom(config, dimensions, openings));
+            setMap(generateMap(config));
             setIsGeneratingMap(false);
         }
     }, [config, isGeneratingMap])
