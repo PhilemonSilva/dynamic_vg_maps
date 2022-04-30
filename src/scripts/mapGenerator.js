@@ -51,10 +51,10 @@ const concatRoomsHorizontal = (roomA, roomB) => {
     return result;
 }
 
-const concatRoomRowsVertical = (roomA, roomB) => {
-    let result = roomA;
-    for (let i = 0; i < roomB.length; i++) {
-        result.push(roomB[i]);
+const concatRoomRowsVertical = (rowA, rowB) => {
+    let result = rowA;
+    for (let i = 0; i < rowB.length; i++) {
+        result.push(rowB[i]);
     }
     return result;
 }
