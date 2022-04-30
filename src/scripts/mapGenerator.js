@@ -3,8 +3,12 @@ import Directions from "../util/directionEnum";
 
 const generateMap = (config) => {
     let roomSize = config.xCount/ config.roomsPerRow;
-    let map = createEmptyMap(config.roomsPerRow);
-    return generateRoomRow(config, config.roomsPerRow, roomSize);
+    //let map = createEmptyMap(config.roomsPerRow);
+    let map = generateRoomRow(config, config.roomsPerRow, roomSize);
+    for (let i = 0; i < config.roomsPerRow; i++) {
+        map = map.concat(generateRoomRow(config, config.roomsPerRow, roomSize));
+    }
+    return map;
 
 }
 
