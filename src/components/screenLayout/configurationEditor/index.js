@@ -77,6 +77,7 @@ ConfigurationEditor.defaultProps = {
         yCount: 100,
         roomWallMinimumWidth: 2,
         fill: 40,
+        roomsPerRow: 5,
         pathWidth: 2,
         organicPaths: true,
         cellTypes: []

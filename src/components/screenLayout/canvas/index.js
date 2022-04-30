@@ -57,6 +57,7 @@ Canvas.defaultProps = {
         yCount: 100,
         roomWallMinimumWidth: 2,
         fill: 40,
+        roomsPerRow: 5,
         pathWidth: 3,
         organicPaths: true,
         cellTypes: []
