@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useState} from 'react'
 import useCanvas from "./canvasManager";
-import generateRoom from "../../../scripts/mapGenerator";
+import generateRoom from "../../../scripts/roomGenerator";
 import PropTypes from 'prop-types';
 import Directions from "../../../util/directionEnum";
 

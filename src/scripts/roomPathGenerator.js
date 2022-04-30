@@ -10,7 +10,7 @@ const randomFromInterval = (min, max) => {
     return rng() * (max - min + 1) + min;
 }
 
-const generatePath = (seed, room, pathSize, openings, organicPath = true) =>{
+const generateRoomPath = (seed, room, pathSize, openings, organicPath = true) =>{
     if (seed) {
         rng = seedrandom(seed);
     }
@@ -32,7 +32,6 @@ const clearPath = (pathSize, directions, organicPath) => {
                 currentRoom[x][y] = false;
                 if(organicPath){
                     generateOrganicPath(x,y);
-
                 }
             }
         }
@@ -79,12 +78,8 @@ const generateOrganicPath = (x, y) => {
     }
 }
 
-const generateOrganicCell = () => {
-
-}
-
 const isOutOfBounds = (x,y) => {
     return (x < 0 || x >= currentRoom.length || y < 0 || y >= currentRoom[x].length);
 }
 
-export default generatePath;
+export default generateRoomPath;

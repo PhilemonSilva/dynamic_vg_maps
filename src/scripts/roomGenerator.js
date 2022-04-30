@@ -1,5 +1,5 @@
 import {log} from "../loggers/InternalLogger";
-import generatePath from './pathGenerator'
+import generateRoomPath from './roomPathGenerator'
 import _ from 'lodash'
 
 const seedrandom = require('seedrandom');
@@ -19,7 +19,7 @@ const generateRoom = (config, dimensions, openings) => {
     log(`Creating ${dimensions.x}x${dimensions.y} room...`);
     let room = generateRandomRoom(config, dimensions.x, dimensions.y);
 
-    room = generatePath(config.seed, room, config.pathWidth, openings, null);
+    room = generateRoomPath(config.seed, room, config.pathWidth, openings, null);
 
     for (let i = 0; i < 5; i++) {
         room = smooth(room);
@@ -80,22 +80,6 @@ const isOuterRoomWall = (x, y, roomX, roomY, wallWidth) => {
         || (y >= 0 && y < wallWidth)
         || (y <= roomY - 1 && y > (roomY - 1 - wallWidth))
 }
-
-
-
-// const generateOrganicPathCells = (room, x, y) => {
-//     for(let i = 0, solidChance = 0; i < 3; i++, solidChance+25) {
-//         let xOutOfBounds = x < 0 || x > room.length - 1;
-//
-//         if(xOutOfBounds || yOutOfBounds || solidChance >= 100) {
-//             return;
-//         }
-//     }
-//     let solidChance = 50;
-//     let value = randomFromInterval(0, 100);
-//     room[x][y] = value < solidChance;
-//
-// }
 
 const fillRoomWithCells = (room, config) =>{
     let solidCells = config.cellTypes.filter(c => c.solid);
