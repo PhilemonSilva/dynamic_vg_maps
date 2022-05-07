@@ -1,15 +1,18 @@
 import generateRoom from "./roomGenerator";
 import Directions from "../util/directionEnum";
+import smoothMap from "./mapSmoother";
+import populateCells from "./cellPopulator";
 
 const generateMap = (config) => {
-    let roomSize = config.xCount/ config.roomsPerRow;
+    let roomDimension = config.xCount/ config.roomsPerRow;
     //let map = createEmptyMap(config.roomsPerRow);
-    let map = generateRoomRow(config, config.roomsPerRow, roomSize);
+    let map = generateRoomRow(config, config.roomsPerRow, roomDimension);
     for (let i = 0; i < config.roomsPerRow; i++) {
-        map = map.concat(generateRoomRow(config, config.roomsPerRow, roomSize));
+        map = map.concat(generateRoomRow(config, config.roomsPerRow, roomDimension));
     }
+    map = smoothMap(map);
+    map = populateCells(map,config);
     return map;
-
 }
 
 const createEmptyMap = (dimension) => {
@@ -25,12 +28,12 @@ const createEmptyMap = (dimension) => {
     return room;
 }
 
-const generateRoomRow = (config, roomsPerRow, roomSize) => {
-    let roomRow = createEmptyRoom(roomSize);
+const generateRoomRow = (config, roomsPerRow, roomDimension) => {
+    let roomRow = createEmptyRoom(roomDimension);
     let rooms = [];
     for (let i = 0; i < roomsPerRow; i++) {
         let openings = [Directions.UP, Directions.DOWN, Directions.LEFT, Directions.RIGHT];
-        let room = generateRoom(config, {x:roomSize, y:roomSize}, openings);
+        let room = generateRoom(config, roomDimension, openings);
         rooms.push(room);
     }
     for (let i = 0; i < rooms.length; i++) {
@@ -51,14 +54,6 @@ const concatRoomsHorizontal = (roomA, roomB) => {
     let result = [];
     for (let i = 0; i < roomA.length; i++) {
         result.push(roomA[i].concat(roomB[i]));
-    }
-    return result;
-}
-
-const concatRoomRowsVertical = (rowA, rowB) => {
-    let result = rowA;
-    for (let i = 0; i < rowB.length; i++) {
-        result.push(rowB[i]);
     }
     return result;
 }

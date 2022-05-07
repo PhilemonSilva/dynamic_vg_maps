@@ -1,19 +1,11 @@
 import Directions from "../util/directionEnum";
+import {setSeed, randomFromInterval} from "./randomNumberGenerator";
 
 let currentRoom = [];
 
-const seedrandom = require('seedrandom');
-let rng = seedrandom();
-
-const randomFromInterval = (min, max) => {
-    // The 'min' and 'max' values are included
-    return rng() * (max - min + 1) + min;
-}
-
 const generateRoomPath = (seed, room, pathSize, openings, organicPath = true) =>{
-    if (seed) {
-        rng = seedrandom(seed);
-    }
+    setSeed(seed);
+
     currentRoom = room;
 
     if((!openings) || pathSize <= 0)
@@ -30,9 +22,9 @@ const clearPath = (pathSize, directions, organicPath) => {
         for(let y = 0; y<currentRoom[x].length; y++) {
             if(isPath(x, y, pathSize, directions)){
                 currentRoom[x][y] = false;
-                if(organicPath){
-                    generateOrganicPath(x,y);
-                }
+                // if(organicPath){
+                //     generateOrganicPath(x,y);
+                // }
             }
         }
     }
@@ -64,22 +56,22 @@ const isPath = (x, y, pathSize, direction) => {
         default: return false;
     }
 }
-
-const generateOrganicPath = (x, y) => {
-    for (let i = x - 4; i <= x + 4; i++) {
-        for (let j = y - 4; j <= y + 4; j++) {
-            if (isOutOfBounds(i,j)) {
-                continue;
-            }
-            if (currentRoom[i][j]) {
-                currentRoom[i][j] = randomFromInterval(0,100) > 40;
-            }
-        }
-    }
-}
-
-const isOutOfBounds = (x,y) => {
-    return (x < 0 || x >= currentRoom.length || y < 0 || y >= currentRoom[x].length);
-}
+//
+// const generateOrganicPath = (x, y) => {
+//     for (let i = x - 4; i <= x + 4; i++) {
+//         for (let j = y - 4; j <= y + 4; j++) {
+//             if (isOutOfBounds(i,j)) {
+//                 continue;
+//             }
+//             if (currentRoom[i][j]) {
+//                 currentRoom[i][j] = randomFromInterval(0,100) > 40;
+//             }
+//         }
+//     }
+// }
+//
+// const isOutOfBounds = (x,y) => {
+//     return (x < 0 || x >= currentRoom.length || y < 0 || y >= currentRoom[x].length);
+// }
 
 export default generateRoomPath;
