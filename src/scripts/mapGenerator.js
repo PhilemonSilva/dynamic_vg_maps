@@ -36,6 +36,7 @@ const generateRoomRow = (config, roomsPerRow, roomDimension) => {
         let room = generateRoom(config, roomDimension, openings);
         rooms.push(room);
     }
+    //TODO: Create paths here, maybe????
     for (let i = 0; i < rooms.length; i++) {
         roomRow = concatRoomsHorizontal(roomRow, rooms[i]);
     }
