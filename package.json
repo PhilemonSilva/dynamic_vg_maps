@@ -10,6 +10,7 @@
     "cross-env": "^7.0.3",
     "eslint": "^7.14.0",
     "fs": "^0.0.1-security",
+    "hilbert-curve": "^2.0.5",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "prop-types": "^15.8.1",
