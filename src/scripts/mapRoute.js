@@ -3,7 +3,7 @@ import generateOffsetHilbertCurve from "./hilbertCurve";
 
 const generateMapRoute = (roomsPerRow) => {
     let offsetHilbertCurve = generateOffsetHilbertCurve(roomsPerRow);
-    let pathMatrix = generatePathMatrix(offsetHilbertCurve);
+    return generatePathMatrix(offsetHilbertCurve);
 }
 
 const generatePathMatrix = (curve) => {
@@ -11,7 +11,11 @@ const generatePathMatrix = (curve) => {
     let entryCoordinates = Object.assign({}, beginOfPathCoordinates);
     let pathMatrix = createEmptyPathMatrix(curve.length);
     let exitCoordinates = fillPathMatrix(pathMatrix, beginOfPathCoordinates, curve);
-    return pathMatrix;
+    return {
+        entryCoordinates: entryCoordinates,
+        exitCoordinates: exitCoordinates,
+        pathMatrix: pathMatrix
+    };
 }
 
 const getCoordinatesOfSmallestNumber = (matrix) => {

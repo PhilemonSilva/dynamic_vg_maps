@@ -6,43 +6,46 @@ import generateMapRoute from "./mapRoute";
 
 const generateMap = (config) => {
     let roomDimension = config.xCount/ config.roomsPerRow;
-    //let map = createEmptyMap(config.roomsPerRow);
-    let map = generateRoomRow(config, config.roomsPerRow, roomDimension);
-    for (let i = 0; i < config.roomsPerRow; i++) {
-        map = map.concat(generateRoomRow(config, config.roomsPerRow, roomDimension));
-    }
+    let roomMatrix = createRoomMatrix(config, roomDimension);
+    let map = concatRoomMatrix(roomMatrix, roomDimension);
     map = smoothMap(map);
     map = populateCells(map,config);
     generateMapRoute(config.roomsPerRow);
     return map;
 }
 
-const createEmptyMap = (dimension) => {
-    let room = [];
-    for (let i = 0; i < dimension; i++) {
-        room.push([]);
-        for (let j = 0; j < dimension; j++) {
-            //TODO: Populate directions here.
-            //let openings = [Directions.UP, Directions.DOWN, Directions.LEFT, Directions.RIGHT];
-            //room[i][j] = { openings: openings };
-        }
+const createRoomMatrix = (config, roomDimension) => {
+    let roomMatrix = []
+    for (let i = 0; i < config.roomsPerRow; i++) {
+        roomMatrix.push(generateRoomArray(config, config.roomsPerRow, roomDimension));
     }
-    return room;
+    return roomMatrix;
 }
-
-const generateRoomRow = (config, roomsPerRow, roomDimension) => {
-    let roomRow = createEmptyRoom(roomDimension);
+const generateRoomArray = (config, amountOfRooms, roomDimension) => {
     let rooms = [];
-    for (let i = 0; i < roomsPerRow; i++) {
+    for (let i = 0; i < amountOfRooms; i++) {
         let openings = [Directions.UP, Directions.DOWN, Directions.LEFT, Directions.RIGHT];
         let room = generateRoom(config, roomDimension, openings);
         rooms.push(room);
     }
-    //TODO: Create paths here, maybe????
-    for (let i = 0; i < rooms.length; i++) {
-        roomRow = concatRoomsHorizontal(roomRow, rooms[i]);
+    return rooms;
+}
+
+const concatRoomMatrix = (roomMatrix, roomDimension) => {
+    let result = [];
+    for (let i = 0; i < roomMatrix.length; i++) {
+        let mapRow = concatRoomArray(roomMatrix[i],roomDimension);  //concat horizontal
+        result = result.concat(mapRow);                                      //concat vertical
     }
-    return roomRow;
+    return result;
+}
+
+const concatRoomArray = (roomArray, roomDimension) => {
+    let result = createEmptyRoom(roomDimension);
+    for (let i = 0; i < roomArray.length; i++) {
+        result = concatRoomsHorizontal(result, roomArray[i]);
+    }
+    return result;
 }
 
 const createEmptyRoom = (dimension) => {
