@@ -6,26 +6,27 @@ import generateMapRoute from "./mapRoute";
 
 const generateMap = (config) => {
     let roomDimension = config.xCount/ config.roomsPerRow;
-    let roomMatrix = createRoomMatrix(config, roomDimension);
+    let mapRoute = generateMapRoute(config.roomsPerRow);
+    let roomMatrix = createRoomMatrix(config, roomDimension, mapRoute);
     let map = concatRoomMatrix(roomMatrix, roomDimension);
     map = smoothMap(map);
     map = populateCells(map,config);
-    generateMapRoute(config.roomsPerRow);
     return map;
 }
 
-const createRoomMatrix = (config, roomDimension) => {
+const createRoomMatrix = (config, roomDimension, mapRoute) => {
     let roomMatrix = []
+    let pathMatrix = mapRoute.pathMatrix;
     for (let i = 0; i < config.roomsPerRow; i++) {
-        roomMatrix.push(generateRoomArray(config, config.roomsPerRow, roomDimension));
+        roomMatrix.push(generateRoomArray(config, config.roomsPerRow, roomDimension, pathMatrix[i]));
     }
     return roomMatrix;
 }
-const generateRoomArray = (config, amountOfRooms, roomDimension) => {
+
+const generateRoomArray = (config, amountOfRooms, roomDimension, mapRouteRow) => {
     let rooms = [];
     for (let i = 0; i < amountOfRooms; i++) {
-        let openings = [Directions.UP, Directions.DOWN, Directions.LEFT, Directions.RIGHT];
-        let room = generateRoom(config, roomDimension, openings);
+        let room = generateRoom(config, roomDimension, mapRouteRow[i].openings);
         rooms.push(room);
     }
     return rooms;
