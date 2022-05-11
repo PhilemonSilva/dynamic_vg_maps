@@ -10,7 +10,7 @@ const populateCells = (map, config) =>{
 
     for (let x = 0; x < map.length; x++) {
         for (let y = 0; y < map[x].length; y++) {
-            let cellArray = map[x][y] ? solidCells : nonSolidCells;
+            let cellArray = map[x][y].solid ? solidCells : nonSolidCells;
             map[x][y] = selectCell(cellArray);
         }
     }

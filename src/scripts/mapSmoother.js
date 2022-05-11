@@ -7,13 +7,13 @@ const smoothMap = (map) => {
 
 const smooth = (map) => {
     let smoothRoom = map
-    for (let x = 0; x < map.length; x++) {
-        for (let y = 0; y < map[x].length; y++) {
-            let solidCellCount = getSurroundingSolidCellCount(map, x, y);
+    for (let y = 0; y < map.length; y++) {
+        for (let x = 0; x < map[y].length; x++) {
+            let solidCellCount = getSurroundingSolidCellCount(map, y, x);
             if (solidCellCount > 4)
-                smoothRoom[x][y] = true;
+                smoothRoom[y][x].solid = true;
             else if (solidCellCount < 4)
-                smoothRoom[x][y] = false;
+                smoothRoom[y][x].solid = false;
         }
     }
     return smoothRoom;
@@ -26,7 +26,7 @@ const getSurroundingSolidCellCount = (map, x, y) => {
             if (i < 0 || i >= map.length || j < 0 || j >= map[i].length) {
                 continue;
             }
-            if (map[i][j]) {
+            if (map[i][j].solid) {
                 solidCellCount++;
             }
         }

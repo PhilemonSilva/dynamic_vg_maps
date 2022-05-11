@@ -22,11 +22,11 @@ const generateRandomRoom = (config, dimension) => {
         room.push([]);
         for (let y = 0; y < dimension; y++) {
             if (isOuterRoomWall(x, y, dimension, config.roomWallMinimumWidth)) {
-                room[x].push(true);
+                room[x].push({ solid: true });
                 continue;
             }
             let cellRng = randomFromInterval(0, 100);
-            room[x].push(cellRng < config.fill);
+            room[x].push({ solid: cellRng < config.fill });
         }
     }
     return room;
