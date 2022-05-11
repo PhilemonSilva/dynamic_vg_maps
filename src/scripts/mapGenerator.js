@@ -2,7 +2,7 @@ import generateRoom from "./roomGenerator";
 import Directions from "../util/directionEnum";
 import smoothMap from "./mapSmoother";
 import populateCells from "./cellPopulator";
-import generateMapRoute from "./mapRouteGenerator";
+import generateMapRoute from "./mapRoute";
 
 const generateMap = (config) => {
     let roomDimension = config.xCount/ config.roomsPerRow;

@@ -1,4 +1,4 @@
-import {randomFromInterval} from "./randomNumberGenerator";
+import {randomIntFromInterval} from "./randomNumberGenerator";
 
 // Documentation: https://github.com/mhyfritz/hilbert-curve
 const hilbertCurve = require("hilbert-curve");
@@ -6,9 +6,13 @@ const hilbertCurve = require("hilbert-curve");
 //Amount of extra Rooms extrapolated to randomize paths
 const extrapolation = 3;
 
-const generateMapRoute = (roomsPerRow) => {
+const generateOffsetHilbertCurve = (roomsPerRow) => {
     let hilbertCurve = generateHilbertCurve(roomsPerRow);
-    let offsetHilbertMatrix = generateOffsetHilbertMatrix(roomsPerRow, hilbertCurve);
+    let numberOfRotations = randomIntFromInterval(0,3);
+    for (let i = 0; i <= numberOfRotations; i++) {
+        hilbertCurve = rotateMatrixRight(hilbertCurve);
+    }
+    return generateOffsetHilbertMatrix(roomsPerRow, hilbertCurve);
 }
 
 const generateHilbertCurve = (roomsPerRow) => {
@@ -31,9 +35,15 @@ const createHilbertCurveMatrix = (array, sideLength) => {
     return result;
 }
 
+const rotateMatrixRight = (matrix) => {
+    //Explanation here:
+    //https://stackoverflow.com/questions/15170942/how-to-rotate-a-matrix-in-an-array-in-javascript
+    return matrix[0].map((val, index) => matrix.map(row => row[index]).reverse());
+}
+
 const generateOffsetHilbertMatrix = (roomsPerRow, hilbertCurve) => {
-    let offsetStartX = Math.round(randomFromInterval(0, roomsPerRow - extrapolation + 1));
-    let offsetStartY = Math.round(randomFromInterval(0, roomsPerRow - extrapolation + 1));
+    let offsetStartX = randomIntFromInterval(0, roomsPerRow - extrapolation + 1);
+    let offsetStartY = randomIntFromInterval(0, roomsPerRow - extrapolation + 1);
     let offsetEndX = offsetStartX + roomsPerRow - 1;
     let offsetEndY = offsetStartY + roomsPerRow - 1;
 
@@ -44,4 +54,4 @@ const generateOffsetHilbertMatrix = (roomsPerRow, hilbertCurve) => {
     return offsetMatrix;
 }
 
-export default generateMapRoute
+export default generateOffsetHilbertCurve
