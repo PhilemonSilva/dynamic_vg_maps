@@ -18,15 +18,15 @@ const generateRoom = (config, dimension, openings) => {
 
 const generateRandomRoom = (config, dimension) => {
     const room = [];
-    for (let x = 0; x < dimension; x++) {
+    for (let y = 0; y < dimension; y++) {
         room.push([]);
-        for (let y = 0; y < dimension; y++) {
-            if (isOuterRoomWall(x, y, dimension, config.roomWallMinimumWidth)) {
-                room[x].push({ solid: true });
+        for (let x = 0; x < dimension; x++) {
+            if (isOuterRoomWall(y, x, dimension, config.roomWallMinimumWidth)) {
+                room[y].push({ solid: true });
                 continue;
             }
             let cellRng = randomFromInterval(0, 100);
-            room[x].push({ solid: cellRng < config.fill });
+            room[y].push({ solid: cellRng < config.fill });
         }
     }
     return room;

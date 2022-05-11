@@ -1,8 +1,8 @@
 import Directions from "../util/directionEnum";
-import {setSeed } from "./randomNumberGenerator";
+import { setSeed, randomFromInterval} from "./randomNumberGenerator";
 
 let currentRoom = [];
-const amountOrganicPathCells = 4;
+const amountOrganicPathCells = 1;
 
 const generateRoomPath = (seed, room, pathSize, openings, organicPath = true) =>{
     setSeed(seed);
@@ -13,15 +13,20 @@ const generateRoomPath = (seed, room, pathSize, openings, organicPath = true) =>
         return currentRoom;
 
     for (let i = 0; i < openings.length; i++) {
-        clearPath(pathSize, openings[i], organicPath);
+        setPath(pathSize, openings[i], organicPath);
     }
     return currentRoom;
 }
 
-const clearPath = (pathSize, directions, organicPath) => {
+const setPath = (pathSize, directions, organicPath) => {
     for(let y = 0; y < currentRoom.length; y++) {
-        for(let x = 0; x<currentRoom[y].length; x++) {
-            currentRoom[y][x].isPath = isPath(y, x, pathSize, directions);
+        for(let x = 0; x < currentRoom[y].length; x++) {
+            if(!currentRoom[y][x].isPath){
+                currentRoom[y][x].isPath = isPath(y, x, pathSize, directions);
+                if(organicPath && currentRoom[y][x].isPath){
+                    generateOrganicPath(x,y);
+                }
+            }
         }
     }
 }
@@ -52,22 +57,23 @@ const isPath = (x, y, pathSize, direction) => {
         default: return false;
     }
 }
-//
-// const generateOrganicPath = (x, y) => {
-//     for (let i = x - amountOrganicPathCells; i <= x + amountOrganicPathCells; i++) {
-//         for (let j = y - amountOrganicPathCells; j <= y + amountOrganicPathCells; j++) {
-//             if (isOutOfBounds(i,j)) {
-//                 continue;
-//             }
-//             if (currentRoom[i][j]) {
-//                 currentRoom[i][j] = randomFromInterval(0,100) > 40;
-//             }
-//         }
-//     }
-// }
-//
-// const isOutOfBounds = (x,y) => {
-//     return (x < 0 || x >= currentRoom.length || y < 0 || y >= currentRoom[x].length);
-// }
+
+const generateOrganicPath = (x, y) => {
+    for (let i = y - amountOrganicPathCells; i <= y + amountOrganicPathCells; i++) {
+        for (let j = x - amountOrganicPathCells; j <= x + amountOrganicPathCells; j++) {
+            if (isOutOfBounds(i,j)) {
+                continue;
+            }
+            if (currentRoom[i][j].solid && !currentRoom[i][j].isPath) {
+                if(randomFromInterval(0,100) > 40)
+                    currentRoom[i][j].isOrganicPath = true;
+            }
+        }
+    }
+}
+
+const isOutOfBounds = (x,y) => {
+    return (x < 0 || x >= currentRoom.length || y < 0 || y >= currentRoom[x].length);
+}
 
 export default generateRoomPath;

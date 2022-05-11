@@ -8,7 +8,9 @@ const generateMap = (config) => {
     let mapRoute = generateMapRoute(config.roomsPerRow);
     let roomMatrix = createRoomMatrix(config, roomDimension, mapRoute);
     let map = concatRoomMatrix(roomMatrix, roomDimension);
+    map = clearOrganicCells(map);
     map = smoothMap(map);
+    map = clearMapRoute(map);
     map = populateCells(map,config);
     return map;
 }
@@ -62,6 +64,28 @@ const concatRoomsHorizontal = (roomA, roomB) => {
         result.push(roomA[i].concat(roomB[i]));
     }
     return result;
+}
+
+const clearMapRoute = (map) => {
+    for (let y = 0; y < map.length; y++) {
+        for (let x = 0; x < map[y].length; x++) {
+            if((map[y][x].isPath || map[y][x].isOrganicPath) && map[y][x].solid){
+                map[y][x].solid = false;
+            }
+        }
+    }
+    return map;
+}
+
+const clearOrganicCells = (map) => {
+    for (let y = 0; y < map.length; y++) {
+        for (let x = 0; x < map[y].length; x++) {
+            if(map[y][x].isOrganicPath && map[y][x].solid){
+                map[y][x].solid = false;
+            }
+        }
+    }
+    return map;
 }
 
 export default generateMap;
