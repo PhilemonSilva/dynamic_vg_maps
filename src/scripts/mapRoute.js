@@ -3,7 +3,9 @@ import generateOffsetHilbertCurve from "./hilbertCurve";
 
 const generateMapRoute = (roomsPerRow) => {
     let offsetHilbertCurve = generateOffsetHilbertCurve(roomsPerRow);
-    return generatePathMatrix(offsetHilbertCurve);
+    let pathMatrixData = generatePathMatrix(offsetHilbertCurve);
+    pathMatrixData.pathMatrix = generateDeadEnds(pathMatrixData.pathMatrix);
+    return pathMatrixData;
 }
 
 const generatePathMatrix = (curve) => {
@@ -103,10 +105,6 @@ const getSmallestNeighbour = (coordinates, neighbours) => {
     return { coordinates: coordinates, direction: Directions.DOWN };
 }
 
-const isOutOfBounds = (x,y,curve) => {
-    return (x < 0 || x >= curve.length || y < 0 || y >= curve[x].length);
-}
-
 const getOppositeDirection = (direction) => {
     switch(direction){
         case Directions.UP:
@@ -120,4 +118,41 @@ const getOppositeDirection = (direction) => {
     }
 }
 
+const generateDeadEnds = (pathMatrix) => {
+    for (let y = 0; y < pathMatrix.length; y++) {
+        for (let x = 0; x < pathMatrix[y].length; x++) {
+            if(pathMatrix[y][x].openings.length === 0){
+                let firstNeighbour = getFirstNeighbour(x,y, pathMatrix);
+
+                if(!firstNeighbour) continue;
+
+                pathMatrix[y][x].openings.push(firstNeighbour.direction);
+
+                let oppositeDirection = getOppositeDirection(firstNeighbour.direction);
+                pathMatrix[firstNeighbour.y][firstNeighbour.x].openings.push(oppositeDirection);
+            }
+        }
+    }
+    return pathMatrix;
+}
+
+const getFirstNeighbour = (x, y, pathMatrix) => {
+    if (!isOutOfBounds(x + 1, y, pathMatrix) && pathMatrix[y][x+1].isPath){
+        return { x: x + 1, y: y, direction: Directions.RIGHT };
+    }
+    if (!isOutOfBounds(x - 1, y, pathMatrix) && pathMatrix[y][x-1].isPath){
+        return { x: x - 1, y: y, direction: Directions.LEFT };
+    }
+    if (!isOutOfBounds(x, y + 1, pathMatrix) && pathMatrix[y+1][x].isPath){
+        return { x: x, y: y + 1, direction: Directions.DOWN };
+    }
+    if (!isOutOfBounds(x, y - 1, pathMatrix) && pathMatrix[y-1][x].isPath){
+        return { x: x, y: y - 1, direction: Directions.UP };
+    }
+    return null;
+}
+
+const isOutOfBounds = (x, y, bounds) => {
+    return (y < 0 || y >= bounds.length || x < 0 || x >= bounds[y].length);
+}
 export default generateMapRoute;
