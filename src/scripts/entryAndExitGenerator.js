@@ -1,5 +1,7 @@
 import {getMiddleNumberBetween} from "../util/general";
 
+//  This class generates the cells of entry and exit in the map.
+
 const generateEntryAndExit = (config, map, mapRoute) => {
     let coordinates = getEntryAndExitRoomBoundaries(config, mapRoute);
     let entryCoordinates = coordinates.entryCellCoordinates;

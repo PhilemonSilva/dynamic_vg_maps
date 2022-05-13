@@ -1,13 +1,14 @@
 import Directions from "../util/directionEnum";
-import { setSeed, randomFromInterval} from "./randomNumberGenerator";
-import {iterateTroughMatrix, isOutOfBoundsMatrix} from "../util/array";
+import { randomFromInterval} from "./randomNumberGenerator";
+import { iterateTroughMatrix, isOutOfBoundsMatrix } from "../util/array";
 
 let currentRoom = [];
 const amountOrganicPathCells = 1;
 
-const generateRoomPath = (config, room, openings) =>{
-    setSeed(config.seed);
+//  This class defines the cells that belong to the map route,
+//as well as define "organic cells" for more natural looking paths
 
+const generateRoomPath = (config, room, openings) =>{
     currentRoom = room;
 
     if((!openings) || config.pathWidth <= 0)

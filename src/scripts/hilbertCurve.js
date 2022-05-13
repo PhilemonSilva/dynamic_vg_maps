@@ -15,6 +15,8 @@ const generateOffsetHilbertCurve = (roomsPerRow) => {
     return generateOffsetHilbertMatrix(roomsPerRow, hilbertCurve);
 }
 
+//The hilbert curve algorithm, as implemented by Markus Hsi-Yang Fritz.
+//I add the "extrapolation" variable to assure that all paths will not look the same as the Hilbert Curve:
 const generateHilbertCurve = (roomsPerRow) => {
     let sideLength = roomsPerRow + extrapolation;
     const extrapolatedArray = Array.from(
@@ -35,12 +37,15 @@ const createHilbertCurveMatrix = (array, sideLength) => {
     return result;
 }
 
+//  If the hilbert curve Matrix is not rotated, we get a strong bias
+//for paths that occupy only one diagonal of the path :
 const rotateMatrixRight = (matrix) => {
-    //Explanation here:
+    //Code taken from:
     //https://stackoverflow.com/questions/15170942/how-to-rotate-a-matrix-in-an-array-in-javascript
     return matrix[0].map((val, index) => matrix.map(row => row[index]).reverse());
 }
 
+//Gets a random subsection off of the original Hilbert Curve matrix:
 const generateOffsetHilbertMatrix = (roomsPerRow, hilbertCurve) => {
     let offsetStartX = randomIntFromInterval(0, roomsPerRow - extrapolation + 1);
     let offsetStartY = randomIntFromInterval(0, roomsPerRow - extrapolation + 1);

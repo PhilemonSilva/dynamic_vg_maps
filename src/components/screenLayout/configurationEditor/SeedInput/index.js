@@ -1,9 +1,20 @@
-import React from 'react';
-import { Input } from 'semantic-ui-react'
+import React, {useEffect, useCallback, useState} from 'react';
+import { Input, Button } from 'semantic-ui-react'
 import InfoIcon from "../InfoIcon";
 import PropTypes from 'prop-types';
+import { getLastUsedSeed } from "../../../../scripts/randomNumberGenerator";
 
-const SeedInput = ({ seed, setSeed, ...props }) => {
+const SeedInput = ({ seed, setSeed, isGeneratingMap, ...props }) => {
+
+    const [randomizedSeed, setRandomizedSeed] = useState('');
+
+
+    let seedRandomizer = useCallback(()=> {
+        if(!seed && isGeneratingMap) setRandomizedSeed(getLastUsedSeed());
+    }, [isGeneratingMap])
+    useEffect(() => {
+        seedRandomizer();
+    }, [seedRandomizer])
     return <>
         <Input
             value={seed}
@@ -12,6 +23,15 @@ const SeedInput = ({ seed, setSeed, ...props }) => {
             placeholder='Seed...'
             {...props}
         />
+        <Button
+            basic
+            color='blue'
+            onClick={() => setSeed(randomizedSeed)}
+            loading={isGeneratingMap}
+            style={{marginLeft: '5px'}}
+        >
+            Get Current Map Seed
+        </Button>
         <InfoIcon
             text={'Seed for the map generation.' +
             ' The same seed, with the same parameters, ' +
@@ -24,12 +44,14 @@ const SeedInput = ({ seed, setSeed, ...props }) => {
 
 SeedInput.propTypes = {
     seed: PropTypes.string,
-    setSeed: PropTypes.func
+    setSeed: PropTypes.func,
+    isGeneratingMap: PropTypes.func
 }
 
 SeedInput.defaultProps = {
     seed: '',
-    setSeed: () => { }
+    setSeed: () => { },
+    isGeneratingMap: () => { }
 }
 
 export default SeedInput

@@ -23,6 +23,7 @@ const ConfigurationEditor = ({config, setConfig, isGeneratingMap, setIsGeneratin
             <SeedInput
                 seed={config.seed}
                 setSeed={setSeed}
+                isGeneratingMap={isGeneratingMap}
                 disabled={isGeneratingMap}
             />
         </InputElement>

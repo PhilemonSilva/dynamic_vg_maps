@@ -3,6 +3,9 @@ import _ from "lodash";
 import { randomFromInterval } from "./randomNumberGenerator";
 import { iterateTroughMatrix } from "../util/array";
 
+//  This class populates every cell in the map with a cell from the "config" variable,
+//according to its spawn chance.
+
 const populateCells = (config, map) =>{
     let solidCells = config.cellTypes.filter(c => c.solid);
     solidCells = _.orderBy(solidCells, 'spawnChance', 'desc');

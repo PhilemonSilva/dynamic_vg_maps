@@ -1,5 +1,8 @@
 import { iterateTroughMatrix } from "../util/array";
 
+// The smoothing algorithm. It makes the matrix look like a cave.
+// Read more about it at: https://jeremykun.com/2012/07/29/the-cellular-automaton-method-for-cave-generation/
+
 const smoothMap = (map) => {
     for (let i = 0; i < 15; i++) {
         map = smooth(map);

@@ -4,12 +4,20 @@ import generateOffsetHilbertCurve from "./hilbertCurve";
 import { iterateTroughMatrix, isOutOfBoundsMatrix } from "../util/array";
 import { randomFromInterval} from "./randomNumberGenerator";
 
+//This class generates a random path through the map.
+
 const generateMapRoute = (config) => {
     let offsetHilbertCurve = generateOffsetHilbertCurve(config.roomsPerRow);
     let pathMatrixData = generatePathMatrix(offsetHilbertCurve);
     pathMatrixData.pathMatrix = generateDeadEnds(pathMatrixData.pathMatrix, config.deadEndSpawnChance);
     return pathMatrixData;
 }
+
+//  All the functions bellow are used for the goal of interpreting the numbers of the Hilbert Curve
+//to create the directions of the paths in each room in the map matrix.
+
+//  I hope I named all the variables appropriately, but this section is a bit complicated...
+//  So if you need help, e-mail me at "philemon.silva@gmail.com" and I'll respond in due time.
 
 const generatePathMatrix = (curve) => {
     let beginOfPathCoordinates =  getCoordinatesOfSmallestNumber(curve);
@@ -23,6 +31,7 @@ const generatePathMatrix = (curve) => {
     };
 }
 
+//Get the smallest number in the Hilbert Curve matrix:
 const getCoordinatesOfSmallestNumber = (matrix) => {
     let smallestNumbersFromRows = [];
     for (let i = 0; i < matrix.length; i++) {
@@ -118,6 +127,8 @@ const getOppositeDirection = (direction) => {
             return Directions.UP;
         case Directions.LEFT:
             return Directions.RIGHT;
+        default:
+            return null;
     }
 }
 

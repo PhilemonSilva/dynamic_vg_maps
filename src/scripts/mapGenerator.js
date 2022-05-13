@@ -6,23 +6,28 @@ import generateEntryAndExit from "./entryAndExitGenerator";
 
 import { iterateTroughMatrix } from "../util/array";
 import { log } from "../loggers/InternalLogger";
+import { setSeed } from "./randomNumberGenerator";
+
+// This is the class that generates the map as a whole (a matrix of rooms).
 
 let roomDimension;
 
 const generateMap = (config) => {
     log(`Creating ${config.mapDimension}x${config.mapDimension} map...`);
 
-    roomDimension = config.mapDimension/ config.roomsPerRow;
-    let mapRoute = generateMapRoute(config);
-    let roomMatrix = createRoomMatrix(config, mapRoute);
-    let map = concatRoomMatrix(roomMatrix, roomDimension);
+    setSeed(config.seed);
+    roomDimension = config.mapDimension/ config.roomsPerRow;    //Size of the sides of the rooms.
+
+    let mapRoute = generateMapRoute(config);                    //Creates a random path through the map.
+    let roomMatrix = createRoomMatrix(config, mapRoute);        //Creates a matrix of rooms.
+    let map = concatRoomMatrix(roomMatrix, roomDimension);      //Concatenates all rooms to create a matrix of cells.
 
     if(config.organicPaths)
-        clearOrganicCells(map);
-    smoothMap(map);
-    clearMapRoute(map);
-    populateCells(config, map);
-    generateEntryAndExit(config, map, mapRoute);
+        clearOrganicCells(map);                                 //Clears some cells to make a more cave looking path.
+    smoothMap(map);                                             //Algorithm that makes the map look like a cave.
+    clearMapRoute(map);                                         //Clears the path through the map.
+    populateCells(config, map);                                 //Populates map with the cells from the configuration.
+    generateEntryAndExit(config, map, mapRoute);                //Generates the entry and exit of the map.
 
     log(`Map created!`);
     return map;

@@ -1,10 +1,11 @@
 import generateRoomPath from './roomPathGenerator';
 import {setSeed, randomFromInterval} from "./randomNumberGenerator";
 
+// This class creates the rooms of the map, as well as generate its walls
+
 const generateRoom = (config, dimension, openings) => {
     if (!config.cellTypes || config.cellTypes.length <= 0)
         return [];
-    setSeed(config.seed);
     let room = generateRandomRoom(config, dimension);
     room = generateRoomPath(config, room, openings);
     return room;
