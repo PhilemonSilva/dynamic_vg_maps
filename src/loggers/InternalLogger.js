@@ -18,3 +18,10 @@ export function logImportant(data){
     console.log(logtext);
     //writeToFile(`${logRepositoryPath}/${logFileTitle}`, logtext);
 }
+
+export const logConfiguration = (config) => {
+    log(`Configuration update: `);
+    for (const configKey in config) {
+        log(`\t${configKey}: ${config[configKey]}`);
+    }
+}

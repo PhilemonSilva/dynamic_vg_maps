@@ -1,6 +1,5 @@
 {
-  "xCount" : 100,
-  "yCount" : 100,
+  "mapDimension" : 100,
   "roomsPerRow": 5,
   "fill": 40,
   "seed": "",

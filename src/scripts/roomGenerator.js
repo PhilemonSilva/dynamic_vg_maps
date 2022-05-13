@@ -1,18 +1,12 @@
-import {log} from "../loggers/InternalLogger";
 import generateRoomPath from './roomPathGenerator';
 import {setSeed, randomFromInterval} from "./randomNumberGenerator";
 
 const generateRoom = (config, dimension, openings) => {
     if (!config.cellTypes || config.cellTypes.length <= 0)
         return [];
-
     setSeed(config.seed);
-    log(`Creating ${dimension}x${dimension} room...`);
-
     let room = generateRandomRoom(config, dimension);
     room = generateRoomPath(config, room, openings);
-
-    log(`Room created...!`);
     return room;
 }
 

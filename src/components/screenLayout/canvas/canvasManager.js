@@ -7,11 +7,11 @@ const useCanvas = (config, draw) => {
     useEffect(() => {
         const canvas = canvasRef.current;
         canvas.height = canvas.width;
-        let cellSide = canvas.width / Math.max(config.xCount, config.yCount);
+        let cellSide = canvas.width / config.mapDimension;
         const context = canvas.getContext('2d');
 
         draw(context, cellSide)
-    }, [ config.xCount, config.yCount, draw ])
+    }, [ config.mapDimension, draw ])
 
     return canvasRef
 }

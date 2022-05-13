@@ -73,11 +73,11 @@ ConfigurationEditor.propTypes = {
 
 ConfigurationEditor.defaultProps = {
     config: {
-        xCount:100,
-        yCount: 100,
+        mapDimension: 100,
         roomWallMinimumWidth: 2,
         fill: 40,
         roomsPerRow: 5,
+        deadEndSpawnChance: 50,
         pathWidth: 2,
         organicPaths: true,
         cellTypes: []

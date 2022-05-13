@@ -5,24 +5,26 @@ import generateMapRoute from "./mapRoute";
 import generateEntryAndExit from "./entryAndExitGenerator";
 
 import { iterateTroughMatrix } from "../util/array";
+import { log } from "../loggers/InternalLogger";
 
 let roomDimension;
 
 const generateMap = (config) => {
-    roomDimension = config.xCount/ config.roomsPerRow;
+    log(`Creating ${config.mapDimension}x${config.mapDimension} map...`);
 
-    let mapRoute = generateMapRoute(config.roomsPerRow);
+    roomDimension = config.mapDimension/ config.roomsPerRow;
+    let mapRoute = generateMapRoute(config);
     let roomMatrix = createRoomMatrix(config, mapRoute);
     let map = concatRoomMatrix(roomMatrix, roomDimension);
 
     if(config.organicPaths)
         clearOrganicCells(map);
-
     smoothMap(map);
     clearMapRoute(map);
     populateCells(config, map);
     generateEntryAndExit(config, map, mapRoute);
 
+    log(`Map created!`);
     return map;
 }
 

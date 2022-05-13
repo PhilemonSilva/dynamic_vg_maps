@@ -1,11 +1,13 @@
 import Directions from "../util/directionEnum";
 import generateOffsetHilbertCurve from "./hilbertCurve";
-import { iterateTroughMatrix, isOutOfBoundsMatrix } from "../util/array";
 
-const generateMapRoute = (roomsPerRow) => {
-    let offsetHilbertCurve = generateOffsetHilbertCurve(roomsPerRow);
+import { iterateTroughMatrix, isOutOfBoundsMatrix } from "../util/array";
+import { randomFromInterval} from "./randomNumberGenerator";
+
+const generateMapRoute = (config) => {
+    let offsetHilbertCurve = generateOffsetHilbertCurve(config.roomsPerRow);
     let pathMatrixData = generatePathMatrix(offsetHilbertCurve);
-    pathMatrixData.pathMatrix = generateDeadEnds(pathMatrixData.pathMatrix);
+    pathMatrixData.pathMatrix = generateDeadEnds(pathMatrixData.pathMatrix, config.deadEndSpawnChance);
     return pathMatrixData;
 }
 
@@ -119,13 +121,14 @@ const getOppositeDirection = (direction) => {
     }
 }
 
-const generateDeadEnds = (pathMatrix) => {
+const generateDeadEnds = (pathMatrix, deadEndChance) => {
     let createPathRooms = (x, y) => {
         if(pathMatrix[y][x].openings.length !== 0) return;
 
         let firstNeighbour = getFirstNeighbour(x,y, pathMatrix);
-
         if(!firstNeighbour) return;
+
+        if(randomFromInterval(0,100) > deadEndChance) return;
 
         pathMatrix[y][x].openings.push(firstNeighbour.direction);
 

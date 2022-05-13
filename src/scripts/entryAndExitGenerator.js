@@ -9,7 +9,7 @@ const generateEntryAndExit = (config, map, mapRoute) => {
 }
 
 const getEntryAndExitRoomBoundaries = (config, mapRoute) => {
-    let roomDimension = config.xCount/ config.roomsPerRow;
+    let roomDimension = config.mapDimension/ config.roomsPerRow;
 
     let entryRoomBoundaries = getRoomBoundaries(mapRoute.entryRoomCoordinates, roomDimension);
     let exitRoomBoundaries = getRoomBoundaries(mapRoute.exitRoomCoordinates, roomDimension);
