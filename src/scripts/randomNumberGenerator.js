@@ -5,7 +5,6 @@ let previouslyUsedSeed = '';
 // This class is a random number generator. It creates the number based on a previously established seed.
 
 export const setSeed = (seed) => {
-    debugger;
     if(seed) rng = seedrandom(seed);
     else{
         previouslyUsedSeed = makeRandomSeed(10);
