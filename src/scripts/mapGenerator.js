@@ -11,23 +11,23 @@ const generateMap = (config) => {
     map = clearOrganicCells(map);
     map = smoothMap(map);
     map = clearMapRoute(map);
-    map = populateCells(map,config);
+    map = populateCells(map,config, mapRoute);
     return map;
 }
 
 const createRoomMatrix = (config, roomDimension, mapRoute) => {
     let roomMatrix = []
     let pathMatrix = mapRoute.pathMatrix;
-    for (let i = 0; i < config.roomsPerRow; i++) {
-        roomMatrix.push(generateRoomArray(config, config.roomsPerRow, roomDimension, pathMatrix[i]));
+    for (let y = 0; y < config.roomsPerRow; y++) {
+        roomMatrix.push(generateRoomArray(config, roomDimension, pathMatrix[y]));
     }
     return roomMatrix;
 }
 
-const generateRoomArray = (config, amountOfRooms, roomDimension, mapRouteRow) => {
+const generateRoomArray = (config, roomDimension, mapRouteRow) => {
     let rooms = [];
-    for (let i = 0; i < amountOfRooms; i++) {
-        let room = generateRoom(config, roomDimension, mapRouteRow[i].openings);
+    for (let x = 0; x < config.roomsPerRow; x++) {
+        let room = generateRoom(config, roomDimension, mapRouteRow[x].openings);
         rooms.push(room);
     }
     return rooms;
@@ -37,7 +37,7 @@ const concatRoomMatrix = (roomMatrix, roomDimension) => {
     let result = [];
     for (let i = 0; i < roomMatrix.length; i++) {
         let mapRow = concatRoomArray(roomMatrix[i],roomDimension);  //concat horizontal
-        result = result.concat(mapRow);                                      //concat vertical
+        result = result.concat(mapRow);                             //concat vertical
     }
     return result;
 }

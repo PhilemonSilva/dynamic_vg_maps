@@ -7,6 +7,19 @@
   "roomWallMinimumWidth": 2,
   "pathWidth": 3,
   "organicPaths": true,
+  "deadEndSpawnChance": 50,
+  "entryCell": {
+    "id": -1,
+    "name": "entry",
+    "solid": false,
+    "color": "#000000"
+  },
+  "exitCell": {
+    "id": -2,
+    "name": "exit",
+    "solid": false,
+    "color": "#000000"
+  },
   "cellTypes" : [
     {
       "id": 0,

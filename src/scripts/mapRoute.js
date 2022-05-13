@@ -14,8 +14,8 @@ const generatePathMatrix = (curve) => {
     let pathMatrix = createEmptyPathMatrix(curve.length);
     let exitCoordinates = fillPathMatrix(pathMatrix, beginOfPathCoordinates, curve);
     return {
-        entryCoordinates: entryCoordinates,
-        exitCoordinates: exitCoordinates,
+        entryRoomCoordinates: entryCoordinates,
+        exitRoomCoordinates: exitCoordinates,
         pathMatrix: pathMatrix
     };
 }
