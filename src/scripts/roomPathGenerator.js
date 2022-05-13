@@ -1,34 +1,37 @@
 import Directions from "../util/directionEnum";
 import { setSeed, randomFromInterval} from "./randomNumberGenerator";
+import {iterateTroughMatrix, isOutOfBoundsMatrix} from "../util/array";
 
 let currentRoom = [];
 const amountOrganicPathCells = 1;
 
-const generateRoomPath = (seed, room, pathSize, openings, organicPath = true) =>{
-    setSeed(seed);
+const generateRoomPath = (config, room, openings) =>{
+    setSeed(config.seed);
 
     currentRoom = room;
 
-    if((!openings) || pathSize <= 0)
+    if((!openings) || config.pathWidth <= 0)
         return currentRoom;
 
     for (let i = 0; i < openings.length; i++) {
-        setPath(pathSize, openings[i], organicPath);
+        setPath(config, openings[i]);
     }
     return currentRoom;
 }
 
-const setPath = (pathSize, directions, organicPath) => {
-    for(let y = 0; y < currentRoom.length; y++) {
-        for(let x = 0; x < currentRoom[y].length; x++) {
-            if(!currentRoom[y][x].isPath){
-                currentRoom[y][x].isPath = isPath(y, x, pathSize, directions);
-                if(organicPath && currentRoom[y][x].isPath){
-                    generateOrganicPath(x,y);
-                }
+const setPath = (config, directions) => {
+    let pathSize = config.pathWidth;
+
+    let pathCreator = (x, y) => {
+        if(!currentRoom[y][x].isPath){
+            currentRoom[y][x].isPath = isPath(y, x, pathSize, directions);
+            if(config.organicPaths && currentRoom[y][x].isPath){
+                generateOrganicPath(x,y, config.fill);
             }
         }
     }
+
+    iterateTroughMatrix(currentRoom, pathCreator);
 }
 
 const isPath = (x, y, pathSize, direction) => {
@@ -58,22 +61,18 @@ const isPath = (x, y, pathSize, direction) => {
     }
 }
 
-const generateOrganicPath = (x, y) => {
+const generateOrganicPath = (x, y, fill) => {
     for (let i = y - amountOrganicPathCells; i <= y + amountOrganicPathCells; i++) {
         for (let j = x - amountOrganicPathCells; j <= x + amountOrganicPathCells; j++) {
-            if (isOutOfBounds(i,j)) {
+            if (isOutOfBoundsMatrix(i,j, currentRoom)) {
                 continue;
             }
             if (currentRoom[i][j].solid && !currentRoom[i][j].isPath) {
-                if(randomFromInterval(0,100) > 40)
+                if(randomFromInterval(0,100) > fill)
                     currentRoom[i][j].isOrganicPath = true;
             }
         }
     }
-}
-
-const isOutOfBounds = (x,y) => {
-    return (x < 0 || x >= currentRoom.length || y < 0 || y >= currentRoom[x].length);
 }
 
 export default generateRoomPath;

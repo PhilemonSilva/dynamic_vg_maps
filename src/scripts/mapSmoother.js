@@ -1,21 +1,24 @@
+import { iterateTroughMatrix } from "../util/array";
+
 const smoothMap = (map) => {
     for (let i = 0; i < 15; i++) {
         map = smooth(map);
     }
-    return map;
 }
 
 const smooth = (map) => {
-    let smoothRoom = map
-    for (let y = 0; y < map.length; y++) {
-        for (let x = 0; x < map[y].length; x++) {
-            let solidCellCount = getSurroundingSolidCellCount(map, y, x);
-            if (solidCellCount > 4)
-                smoothRoom[y][x].solid = true;
-            else if (solidCellCount < 4)
-                smoothRoom[y][x].solid = false;
-        }
+    let smoothRoom = map;
+
+    let smoothCell = (x, y) =>  {
+        let solidCellCount = getSurroundingSolidCellCount(map, y, x);
+        if (solidCellCount > 4)
+            smoothRoom[y][x].solid = true;
+        else if (solidCellCount < 4)
+            smoothRoom[y][x].solid = false;
     }
+
+    iterateTroughMatrix(map,smoothCell);
+
     return smoothRoom;
 }
 

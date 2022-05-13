@@ -10,7 +10,7 @@ const generateRoom = (config, dimension, openings) => {
     log(`Creating ${dimension}x${dimension} room...`);
 
     let room = generateRandomRoom(config, dimension);
-    room = generateRoomPath(config.seed, room, config.pathWidth, openings, config.organicPaths);
+    room = generateRoomPath(config, room, openings);
 
     log(`Room created...!`);
     return room;

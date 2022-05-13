@@ -2,8 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import reportWebVitals from './loggers/reportWebVitals';
-import {log} from "./loggers/InternalLogger";
 
 ReactDOM.render(
   <React.StrictMode>

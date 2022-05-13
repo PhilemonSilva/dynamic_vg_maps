@@ -2,29 +2,40 @@ import generateRoom from "./roomGenerator";
 import smoothMap from "./mapSmoother";
 import populateCells from "./cellPopulator";
 import generateMapRoute from "./mapRoute";
+import generateEntryAndExit from "./entryAndExitGenerator";
+
+import { iterateTroughMatrix } from "../util/array";
+
+let roomDimension;
 
 const generateMap = (config) => {
-    let roomDimension = config.xCount/ config.roomsPerRow;
+    roomDimension = config.xCount/ config.roomsPerRow;
+
     let mapRoute = generateMapRoute(config.roomsPerRow);
-    let roomMatrix = createRoomMatrix(config, roomDimension, mapRoute);
+    let roomMatrix = createRoomMatrix(config, mapRoute);
     let map = concatRoomMatrix(roomMatrix, roomDimension);
-    map = clearOrganicCells(map);
-    map = smoothMap(map);
-    map = clearMapRoute(map);
-    map = populateCells(map,config, mapRoute);
+
+    if(config.organicPaths)
+        clearOrganicCells(map);
+
+    smoothMap(map);
+    clearMapRoute(map);
+    populateCells(config, map);
+    generateEntryAndExit(config, map, mapRoute);
+
     return map;
 }
 
-const createRoomMatrix = (config, roomDimension, mapRoute) => {
+const createRoomMatrix = (config, mapRoute) => {
     let roomMatrix = []
     let pathMatrix = mapRoute.pathMatrix;
     for (let y = 0; y < config.roomsPerRow; y++) {
-        roomMatrix.push(generateRoomArray(config, roomDimension, pathMatrix[y]));
+        roomMatrix.push(generateRoomArray(config, pathMatrix[y]));
     }
     return roomMatrix;
 }
 
-const generateRoomArray = (config, roomDimension, mapRouteRow) => {
+const generateRoomArray = (config, mapRouteRow) => {
     let rooms = [];
     for (let x = 0; x < config.roomsPerRow; x++) {
         let room = generateRoom(config, roomDimension, mapRouteRow[x].openings);
@@ -33,26 +44,26 @@ const generateRoomArray = (config, roomDimension, mapRouteRow) => {
     return rooms;
 }
 
-const concatRoomMatrix = (roomMatrix, roomDimension) => {
+const concatRoomMatrix = (roomMatrix) => {
     let result = [];
     for (let i = 0; i < roomMatrix.length; i++) {
-        let mapRow = concatRoomArray(roomMatrix[i],roomDimension);  //concat horizontal
-        result = result.concat(mapRow);                             //concat vertical
+        let mapRow = concatRoomArray(roomMatrix[i]);         //concat horizontal
+        result = result.concat(mapRow);                      //concat vertical
     }
     return result;
 }
 
-const concatRoomArray = (roomArray, roomDimension) => {
-    let result = createEmptyRoom(roomDimension);
+const concatRoomArray = (roomArray) => {
+    let result = createEmptyRoom();
     for (let i = 0; i < roomArray.length; i++) {
         result = concatRoomsHorizontal(result, roomArray[i]);
     }
     return result;
 }
 
-const createEmptyRoom = (dimension) => {
+const createEmptyRoom = () => {
     let room = [];
-    for (let i = 0; i < dimension; i++) {
+    for (let i = 0; i < roomDimension; i++) {
         room.push([]);
     }
     return room;
@@ -67,25 +78,25 @@ const concatRoomsHorizontal = (roomA, roomB) => {
 }
 
 const clearMapRoute = (map) => {
-    for (let y = 0; y < map.length; y++) {
-        for (let x = 0; x < map[y].length; x++) {
-            if((map[y][x].isPath || map[y][x].isOrganicPath) && map[y][x].solid){
-                map[y][x].solid = false;
-            }
+
+    let clearRouteCell = (x, y)=> {
+        if((map[y][x].isPath || map[y][x].isOrganicPath) && map[y][x].solid){
+            map[y][x].solid = false;
         }
     }
-    return map;
+
+    iterateTroughMatrix(map, clearRouteCell);
 }
 
 const clearOrganicCells = (map) => {
-    for (let y = 0; y < map.length; y++) {
-        for (let x = 0; x < map[y].length; x++) {
-            if(map[y][x].isOrganicPath && map[y][x].solid){
-                map[y][x].solid = false;
-            }
+
+    let clearOrganicCell = (x,y) => {
+        if(map[y][x].isOrganicPath && map[y][x].solid){
+            map[y][x].solid = false;
         }
     }
-    return map;
+
+    iterateTroughMatrix(map, clearOrganicCell);
 }
 
 export default generateMap;

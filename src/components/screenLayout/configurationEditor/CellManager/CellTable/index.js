@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Table } from 'semantic-ui-react'
 import InfoIcon from "../../InfoIcon";
 import CellRow from "./CellRow";
-import sum from '../../../../../util/array'
+import { sum } from '../../../../../util/array'
 import './index.style.css';
 import PropTypes from 'prop-types';
 
