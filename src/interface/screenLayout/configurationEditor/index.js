@@ -7,6 +7,7 @@ import RouteEditor from "./RouteEditor";
 import MapDimensionEditor from "./MapDimensionEditor";
 import {Wrapper, InputElement} from "./index.style";
 import SeedInput from "./SeedInput";
+import {download} from "../../../scripts/util/general";
 
 
 const ConfigurationEditor = ({config, setConfig, isGeneratingMap, setIsGeneratingMap, ...props}) => {
@@ -22,6 +23,16 @@ const ConfigurationEditor = ({config, setConfig, isGeneratingMap, setIsGeneratin
                 isGeneratingMap={isGeneratingMap}
                 disabled={isGeneratingMap}
             />
+            <Button
+                compact
+                primary
+                size={'small'}
+                onClick={() => download(config, 'config')}
+                icon={'download'}
+                style={{marginLeft: '5px'}}
+            >
+                Download Config
+            </Button>
         </InputElement>
         <RouteEditor
             config={config}

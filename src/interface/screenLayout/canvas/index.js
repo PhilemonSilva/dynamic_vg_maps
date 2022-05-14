@@ -2,6 +2,9 @@ import React, {useCallback, useEffect, useState} from 'react'
 import useCanvas from "./canvasManager";
 import generateMap from "../../../scripts/mapGenerator";
 import PropTypes from 'prop-types';
+import {download} from "../../../scripts/util/general";
+import {Wrapper} from "./index.style";
+import {Button} from "semantic-ui-react";
 
 const Canvas = ({ config, isGeneratingMap, setIsGeneratingMap, ...props}) => {
 
@@ -31,14 +34,27 @@ const Canvas = ({ config, isGeneratingMap, setIsGeneratingMap, ...props}) => {
 
     const canvasRef = useCanvas(config, draw);
 
-    return <canvas
-        ref={canvasRef}
-        style={{
-            width: '60%',
-            height: '85%',
-            border: '1px solid #000000'}}
-        {...props}
-    />
+    return <Wrapper>
+        <canvas
+            ref={canvasRef}
+            style={{
+                width: '100%',
+                height: '85%',
+                border: '1px solid #000000'}}
+            {...props}
+        />
+        <Button
+            compact
+            primary
+            size={'small'}
+            onClick={() => download(map, 'map')}
+            icon={'download'}
+            style={{margin: '5px'}}
+        >
+            Download Map
+        </Button>
+
+    </Wrapper>
 }
 
 Canvas.propTypes = {

@@ -1,3 +1,5 @@
+import exportFromJSON from 'export-from-json'
+
 export const getMiddleNumberBetween = (a, b) => {
     return Math.round((a+b)/2);
 }
@@ -10,4 +12,9 @@ export const nextPowerOf2 = (number) =>{
         powerOf <<= 1;
     }
     return powerOf;
+}
+
+export const download = (json, name) => {
+    const exportType =  exportFromJSON.types.json
+    exportFromJSON({ data:json, fileName:name, exportType })
 }
