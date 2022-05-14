@@ -4,7 +4,7 @@ import { HexColorPicker } from 'react-colorful'
 import { ModalContentContainer } from "./index.style";
 import PropTypes from 'prop-types';
 
-const CellColorPicker = ({ index, name, color, setColor, ...props }) => {
+const CellColorPicker = ({ name, color, setColor, ...props }) => {
     const [modalOpen, setModalOpen] = React.useState(false);
 
     return <Modal
@@ -39,16 +39,14 @@ const CellColorPicker = ({ index, name, color, setColor, ...props }) => {
 }
 
 CellColorPicker.propTypes = {
-    index: PropTypes.number,
     name: PropTypes.string,
     color: PropTypes.string,
     setColor: PropTypes.func
 }
 
 CellColorPicker.defaultProps = {
-    index: 0,
     name: 'no_name',
-    color: '#f1c40f',
+    color: '#808080',
     setColor: () => { }
 }
 

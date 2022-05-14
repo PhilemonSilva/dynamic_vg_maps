@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Table } from 'semantic-ui-react'
 import InfoIcon from "../../InfoIcon";
 import CellRow from "./CellRow";
+import CellAddRow from "./CellAddRow";
 import { sum } from '../../../../../scripts/util/array'
 import './index.style.css';
 import PropTypes from 'prop-types';
@@ -17,7 +18,7 @@ const CellTable = ({ cells, setCells, ...props }) => {
         let nonSolidSpawnSum = sum(cells.filter(c => !c.solid), 'spawnChance');
         setSolidCellsAreValid( (solidSpawnSum === 100));
         setNonSolidCellsAreValid((nonSolidSpawnSum === 100));
-    }, [JSON.stringify(cells)]);
+    }, [JSON.stringify(cells), cells]);
     useEffect(() => {
         validateCells();
     }, [validateCells])
@@ -95,6 +96,10 @@ const CellTable = ({ cells, setCells, ...props }) => {
 
         <Table.Body>
             {cellRows}
+            <CellAddRow
+                cells={cells}
+                setCells={setCells}
+            />
         </Table.Body>
     </Table>
 }

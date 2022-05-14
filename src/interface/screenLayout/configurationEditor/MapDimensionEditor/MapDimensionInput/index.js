@@ -18,7 +18,7 @@ const MapDimensionInput = ({ mapDimension, setMapDimension, ...props }) => {
             <Label>x{mapDimension}</Label>
         </Input>
         <InfoIcon
-            text={'The amount of cells in the sides of the map. Inputting \"100\" will generate a 100x100 grid of cells.'}
+            text={'The amount of cells in the sides of the map. Inputting "100" will generate a 100x100 grid of cells.'}
         />
     </>
 

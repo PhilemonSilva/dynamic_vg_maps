@@ -2,7 +2,7 @@ import React from 'react';
 import { Input } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
-const CellSpawnChanceInput = ({ index, spawnChance, setSpawnChance, ...props }) => {
+const CellSpawnChanceInput = ({ spawnChance, setSpawnChance, ...props }) => {
     return <>
         <Input
             value={spawnChance}
@@ -20,13 +20,11 @@ const CellSpawnChanceInput = ({ index, spawnChance, setSpawnChance, ...props }) 
 }
 
 CellSpawnChanceInput.propTypes = {
-    index: PropTypes.number,
     spawnChance: PropTypes.number,
     setSpawnChance: PropTypes.func
 }
 
 CellSpawnChanceInput.defaultProps = {
-    index: 0,
     spawnChance: 0,
     setSpawnChance: () => { }
 }

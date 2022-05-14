@@ -12,7 +12,7 @@ const Canvas = ({ config, isGeneratingMap, setIsGeneratingMap, ...props}) => {
             setMap(generateMap(config));
             setIsGeneratingMap(false);
         }
-    }, [config, isGeneratingMap])
+    }, [config, isGeneratingMap, setIsGeneratingMap])
     useEffect(()=>{
         generateNewMap();
     }, [generateNewMap])

@@ -2,7 +2,7 @@ import React from 'react';
 import { Input } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
-const CellIdInput = ({ index, cellId, setCellId, ...props }) => {
+const CellIdInput = ({cellId, setCellId, ...props }) => {
     return <>
         <Input
             value={cellId}
@@ -17,13 +17,11 @@ const CellIdInput = ({ index, cellId, setCellId, ...props }) => {
 }
 
 CellIdInput.propTypes = {
-    index: PropTypes.number,
     cellId: PropTypes.number,
     setCellId: PropTypes.func
 }
 
 CellIdInput.defaultProps = {
-    index: 0,
     cellId: 0,
     setCellId: () => { }
 }
