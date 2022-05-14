@@ -1,6 +1,6 @@
 import React from 'react';
 import { Input, Label } from 'semantic-ui-react'
-import InfoIcon from "../InfoIcon";
+import InfoIcon from "../../InfoIcon";
 import PropTypes from 'prop-types';
 
 const PathWidthInput = ({ pathWidth, setPathWidth, ...props }) => {
@@ -13,7 +13,7 @@ const PathWidthInput = ({ pathWidth, setPathWidth, ...props }) => {
             placeholder='3...'
             {...props}
         >
-            <Label basic>Path Width:</Label>
+            <Label>Path Width:</Label>
             <input style={{maxWidth: 70}}/>
             <Label>Cells</Label>
         </Input>

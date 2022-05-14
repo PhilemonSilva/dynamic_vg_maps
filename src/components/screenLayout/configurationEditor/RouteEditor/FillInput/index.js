@@ -1,6 +1,6 @@
 import React from 'react';
 import { Input, Label } from 'semantic-ui-react'
-import InfoIcon from "../InfoIcon";
+import InfoIcon from "../../InfoIcon";
 import PropTypes from 'prop-types';
 
 const FillInput = ({ fill, setFill, ...props }) => {
@@ -15,7 +15,7 @@ const FillInput = ({ fill, setFill, ...props }) => {
             placeholder='40.00'
             {...props}
         >
-            <Label basic>Fill:</Label>
+            <Label>Fill:</Label>
             <input style={{maxWidth: 90}}/>
             <Label>%</Label>
         </Input>

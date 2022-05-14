@@ -1,21 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'semantic-ui-react'
-import SeedInput from "./SeedInput";
-import WallWidthInput from "./WallWidthInput";
-import FillInput from "./FillInput";
+import RoomEditor from "./RoomEditor";
 import CellManager from "./CellManager";
-import PathWidthInput from "./PathWidthInput";
+import RouteEditor from "./RouteEditor";
+import MapDimensionEditor from "./MapDimensionEditor";
 import {Wrapper, InputElement} from "./index.style";
+import SeedInput from "./SeedInput";
 
 
 const ConfigurationEditor = ({config, setConfig, isGeneratingMap, setIsGeneratingMap, ...props}) => {
 
     const setSeed = (seed) => setConfig(prevState => {return {...prevState, seed: seed }});
-    const setFill = (fill) => setConfig(prevState => {return {...prevState, fill: fill }});
-    const setWallWidth = (width) => setConfig(prevState => {return {...prevState, roomWallMinimumWidth: width }});
-    const setOrganicPaths = (areOrganic) => setConfig(prevState => {return {...prevState, organicPaths: areOrganic }});
-    const setPathWidth = (width) => setConfig(prevState => {return {...prevState, pathWidth: width}})
     const setCells = (cells) => setConfig(prevState => {return {...prevState, cellTypes: cells}})
 
     return <Wrapper {...props}>
@@ -27,27 +23,21 @@ const ConfigurationEditor = ({config, setConfig, isGeneratingMap, setIsGeneratin
                 disabled={isGeneratingMap}
             />
         </InputElement>
-        <InputElement>
-            <WallWidthInput
-                wallWidth={config.roomWallMinimumWidth}
-                setWallWidth={setWallWidth}
-                disabled={isGeneratingMap}
-            />
-        </InputElement>
-        <InputElement>
-            <PathWidthInput
-                pathWidth={config.pathWidth}
-                setPathWidth={setPathWidth}
-                disabled={isGeneratingMap}
-            />
-        </InputElement>
-        <InputElement>
-            <FillInput
-                fill={config.fill}
-                setFill={setFill}
-                disabled={isGeneratingMap}
-            />
-        </InputElement>
+        <RouteEditor
+            config={config}
+            setConfig={setConfig}
+            isGeneratingMap={isGeneratingMap}
+        />
+        <MapDimensionEditor
+            config={config}
+            setConfig={setConfig}
+            isGeneratingMap={isGeneratingMap}
+        />
+        <RoomEditor
+            config={config}
+            setConfig={setConfig}
+            isGeneratingMap={isGeneratingMap}
+        />
         <InputElement>
             <CellManager
                 cells={config.cellTypes}

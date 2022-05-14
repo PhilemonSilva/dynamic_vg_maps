@@ -11,3 +11,9 @@ export const Wrapper = styled.div`
 export const InputElement = styled.div`
   margin: 5px;
 `;
+
+export const FormRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;

@@ -1,10 +1,9 @@
 import React from 'react';
 import { Input, Label } from 'semantic-ui-react'
-import InfoIcon from "../InfoIcon";
+import InfoIcon from "../../InfoIcon";
 import PropTypes from 'prop-types';
 
 const WallWidthInput = ({ wallWidth, setWallWidth, ...props }) => {
-    //TODO: Warn about wall = 1 problem
     return <>
         <Input
             value={wallWidth}
@@ -14,8 +13,8 @@ const WallWidthInput = ({ wallWidth, setWallWidth, ...props }) => {
             placeholder='2'
             {...props}
         >
-            <Label basic>Min. Wall Width:</Label>
-            <input style={{maxWidth: 70}}/>
+            <Label>Min. Wall Width:</Label>
+            <input style={{maxWidth: 80}}/>
             <Label>Cells</Label>
         </Input>
         <InfoIcon

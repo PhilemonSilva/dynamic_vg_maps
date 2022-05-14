@@ -1,6 +1,6 @@
 {
   "mapDimension" : 100,
-  "roomsPerRow": 5,
+  "roomsPerRow": 4,
   "fill": 40,
   "seed": "",
   "roomWallMinimumWidth": 2,

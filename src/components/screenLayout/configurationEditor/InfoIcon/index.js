@@ -1,7 +1,6 @@
 import React from 'react';
 import { Popup, Icon } from 'semantic-ui-react'
 import PropTypes from 'prop-types';
-import { Wrapper } from './index.style'
 
 const InfoIcon = ({ text, ...props }) => {
     return <Popup

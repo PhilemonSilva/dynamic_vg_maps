@@ -16,3 +16,10 @@ export const iterateTroughMatrix = (matrix, execute) => {
         }
     }
 }
+
+export const createArrayFromSideLength = (sideLength) => {
+    return Array.from(
+        { length: sideLength * sideLength },
+        (_, i) => i + 1
+    );
+}

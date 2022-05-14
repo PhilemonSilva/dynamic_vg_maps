@@ -1,10 +1,9 @@
-import {randomIntFromInterval} from "./randomNumberGenerator";
+import { randomIntFromInterval } from "./randomNumberGenerator";
+import { nextPowerOf2 } from "../util/general";
+import {createArrayFromSideLength} from "../util/array";
 
 // Documentation: https://github.com/mhyfritz/hilbert-curve
 const hilbertCurve = require("hilbert-curve");
-
-//Amount of extra Rooms extrapolated to randomize paths
-const extrapolation = 3;
 
 const generateOffsetHilbertCurve = (roomsPerRow) => {
     let hilbertCurve = generateHilbertCurve(roomsPerRow);
@@ -15,15 +14,14 @@ const generateOffsetHilbertCurve = (roomsPerRow) => {
     return generateOffsetHilbertMatrix(roomsPerRow, hilbertCurve);
 }
 
-//The hilbert curve algorithm, as implemented by Markus Hsi-Yang Fritz.
-//I add the "extrapolation" variable to assure that all paths will not look the same as the Hilbert Curve:
+//The Hilbert Curve algorithm, as implemented by Markus Hsi-Yang Fritz.
+//The Hilbert Curve can only be constructed with numbers that are a power of 2 (2^n):
 const generateHilbertCurve = (roomsPerRow) => {
-    let sideLength = roomsPerRow + extrapolation;
-    const extrapolatedArray = Array.from(
-        { length: sideLength * sideLength },
-        (_, i) => i + 1
-    );
+    let sideLength = nextPowerOf2(roomsPerRow);
+
+    const extrapolatedArray = createArrayFromSideLength(sideLength);
     let extrapolatedHilbertCurveArray = hilbertCurve.construct(extrapolatedArray);
+
     return createHilbertCurveMatrix(extrapolatedHilbertCurveArray, sideLength)
 }
 
@@ -47,8 +45,8 @@ const rotateMatrixRight = (matrix) => {
 
 //Gets a random subsection off of the original Hilbert Curve matrix:
 const generateOffsetHilbertMatrix = (roomsPerRow, hilbertCurve) => {
-    let offsetStartX = randomIntFromInterval(0, roomsPerRow - extrapolation + 1);
-    let offsetStartY = randomIntFromInterval(0, roomsPerRow - extrapolation + 1);
+    let offsetStartX = randomIntFromInterval(0, roomsPerRow);
+    let offsetStartY = randomIntFromInterval(0, roomsPerRow);
     let offsetEndX = offsetStartX + roomsPerRow - 1;
     let offsetEndY = offsetStartY + roomsPerRow - 1;
 

@@ -11,7 +11,7 @@ const SeedInput = ({ seed, setSeed, isGeneratingMap, ...props }) => {
 
     let seedRandomizer = useCallback(()=> {
         if(!seed && isGeneratingMap) setRandomizedSeed(getLastUsedSeed());
-    }, [isGeneratingMap])
+    }, [isGeneratingMap, seed])
     useEffect(() => {
         seedRandomizer();
     }, [seedRandomizer])
@@ -19,8 +19,9 @@ const SeedInput = ({ seed, setSeed, isGeneratingMap, ...props }) => {
         <Input
             value={seed}
             onChange={(_,{ value}) => setSeed(value)}
-            label={{ basic: true, content: 'Seed: '}}
+            label='Seed: '
             placeholder='Seed...'
+
             {...props}
         />
         <Button
@@ -45,13 +46,13 @@ const SeedInput = ({ seed, setSeed, isGeneratingMap, ...props }) => {
 SeedInput.propTypes = {
     seed: PropTypes.string,
     setSeed: PropTypes.func,
-    isGeneratingMap: PropTypes.func
+    isGeneratingMap: PropTypes.bool
 }
 
 SeedInput.defaultProps = {
     seed: '',
     setSeed: () => { },
-    isGeneratingMap: () => { }
+    isGeneratingMap: false
 }
 
 export default SeedInput
