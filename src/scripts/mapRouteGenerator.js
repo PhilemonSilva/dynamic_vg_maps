@@ -1,8 +1,8 @@
-import Directions from "../util/directionEnum";
-import generateOffsetHilbertCurve from "./hilbertCurve";
+import Directions from "./util/directionEnum";
+import generateOffsetHilbertCurve from "./algorithms/hilbertCurve";
 
-import { iterateTroughMatrix, isOutOfBoundsMatrix } from "../util/array";
-import { randomFromInterval} from "./randomNumberGenerator";
+import { iterateTroughMatrix, isOutOfBoundsMatrix } from "./util/array";
+import { randomFromInterval} from "./algorithms/randomNumberGenerator";
 
 //This class generates a random path through the map.
 

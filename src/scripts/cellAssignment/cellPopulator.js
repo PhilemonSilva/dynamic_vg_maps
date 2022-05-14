@@ -1,6 +1,6 @@
 import _ from "lodash";
 
-import { randomFromInterval } from "./randomNumberGenerator";
+import { randomFromInterval } from "../algorithms/randomNumberGenerator";
 import { iterateTroughMatrix } from "../util/array";
 
 //  This class populates every cell in the map with a cell from the "config" variable,

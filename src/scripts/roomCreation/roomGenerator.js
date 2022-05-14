@@ -1,5 +1,5 @@
 import generateRoomPath from './roomPathGenerator';
-import {setSeed, randomFromInterval} from "./randomNumberGenerator";
+import {randomFromInterval} from "../algorithms/randomNumberGenerator";
 
 // This class creates the rooms of the map, as well as generate its walls
 

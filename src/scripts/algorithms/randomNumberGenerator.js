@@ -7,7 +7,7 @@ let previouslyUsedSeed = '';
 export const setSeed = (seed) => {
     if(seed) rng = seedrandom(seed);
     else{
-        previouslyUsedSeed = makeRandomSeed(10);
+        previouslyUsedSeed = makeRandomSeed(15);
         rng = seedrandom(previouslyUsedSeed);
     }
 }

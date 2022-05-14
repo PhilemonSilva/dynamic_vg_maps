@@ -1,5 +1,5 @@
 import './App.css';
-import ScreenLayout from "./components/screenLayout";
+import ScreenLayout from "./interface/screenLayout";
 
 function App() {
   return (

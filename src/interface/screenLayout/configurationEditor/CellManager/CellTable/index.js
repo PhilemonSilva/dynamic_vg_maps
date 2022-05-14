@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Table } from 'semantic-ui-react'
 import InfoIcon from "../../InfoIcon";
 import CellRow from "./CellRow";
-import { sum } from '../../../../../util/array'
+import { sum } from '../../../../../scripts/util/array'
 import './index.style.css';
 import PropTypes from 'prop-types';
 
@@ -28,19 +28,17 @@ const CellTable = ({ cells, setCells, ...props }) => {
     }
 
     const generateCellRows = useCallback(()=> {
-        setCellRows(
-            cells.map((cell, i) => {
-                return <CellRow
-                    key={i}
-                    index={i}
-                    warning={rowHasWarning(cell)}
-                    cells={cells}
-                    setCells={setCells}
-                    cell={cell}
-                />
-            })
-        );
-
+        let configCells = cells.map((cell, i) => {
+            return <CellRow
+                key={i}
+                index={i}
+                warning={rowHasWarning(cell)}
+                cells={cells}
+                setCells={setCells}
+                cell={cell}
+            />
+        })
+        setCellRows(configCells);
     }, [JSON.stringify(cells), solidCellsAreValid, nonSolidCellsAreValid]);
     useEffect(()=>{
         generateCellRows();

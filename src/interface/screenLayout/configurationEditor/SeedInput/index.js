@@ -2,7 +2,7 @@ import React, {useEffect, useCallback, useState} from 'react';
 import { Input, Button } from 'semantic-ui-react'
 import InfoIcon from "../InfoIcon";
 import PropTypes from 'prop-types';
-import { getLastUsedSeed } from "../../../../scripts/randomNumberGenerator";
+import { getLastUsedSeed } from "../../../../scripts/algorithms/randomNumberGenerator";
 
 const SeedInput = ({ seed, setSeed, isGeneratingMap, ...props }) => {
 

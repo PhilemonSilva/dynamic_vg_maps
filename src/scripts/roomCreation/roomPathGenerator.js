@@ -1,5 +1,5 @@
 import Directions from "../util/directionEnum";
-import { randomFromInterval} from "./randomNumberGenerator";
+import { randomFromInterval} from "../algorithms/randomNumberGenerator";
 import { iterateTroughMatrix, isOutOfBoundsMatrix } from "../util/array";
 
 let currentRoom = [];

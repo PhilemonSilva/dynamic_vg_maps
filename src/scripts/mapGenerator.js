@@ -1,12 +1,12 @@
-import generateRoom from "./roomGenerator";
-import smoothMap from "./mapSmoother";
-import populateCells from "./cellPopulator";
-import generateMapRoute from "./mapRoute";
-import generateEntryAndExit from "./entryAndExitGenerator";
+import generateRoom from "./roomCreation/roomGenerator";
+import smoothMap from "./algorithms/smoothing";
+import populateCells from "./cellAssignment/cellPopulator";
+import generateMapRoute from "./mapRouteGenerator";
+import generateEntryAndExit from "./cellAssignment/entryAndExitGenerator";
 
-import { iterateTroughMatrix } from "../util/array";
+import { iterateTroughMatrix } from "./util/array";
 import { log } from "../loggers/InternalLogger";
-import { setSeed } from "./randomNumberGenerator";
+import { setSeed } from "./algorithms/randomNumberGenerator";
 
 // This is the class that generates the map as a whole (a matrix of rooms).
 
