@@ -13,6 +13,7 @@ const CellSpawnChanceInput = ({ index, spawnChance, setSpawnChance, ...props }) 
             label='%'
             labelPosition={"right"}
             style={{maxWidth: 90}}
+            {...props}
         />
     </>
 

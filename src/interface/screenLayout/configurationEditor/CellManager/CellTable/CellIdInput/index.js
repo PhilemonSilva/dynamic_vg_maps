@@ -10,6 +10,7 @@ const CellIdInput = ({ index, cellId, setCellId, ...props }) => {
             size={"small"}
             type='number'
             style={{maxWidth: 80}}
+            {...props}
         />
     </>
 
