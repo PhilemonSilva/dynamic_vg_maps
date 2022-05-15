@@ -48,7 +48,6 @@ const Canvas = ({ config, isGeneratingMap, setIsGeneratingMap, ...props}) => {
             primary
             size={'small'}
             onClick={() => download(map, 'map')}
-            icon={'download'}
             style={{margin: '5px'}}
         >
             Download Map

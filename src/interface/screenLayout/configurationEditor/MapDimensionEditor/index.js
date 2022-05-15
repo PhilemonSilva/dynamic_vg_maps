@@ -19,7 +19,7 @@ const MapDimensionEditor = ({config, setConfig, isGeneratingMap, ...props}) => {
         <InputElement>
             <RoomsPerRowInput
                 roomsPerRow={config.roomsPerRow}
-                setFill={setRoomsPerRow}
+                setRoomsPerRow={setRoomsPerRow}
                 disabled={isGeneratingMap}
             />
         </InputElement>

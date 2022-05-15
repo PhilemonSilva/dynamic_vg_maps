@@ -28,7 +28,6 @@ const ConfigurationEditor = ({config, setConfig, isGeneratingMap, setIsGeneratin
                 primary
                 size={'small'}
                 onClick={() => download(config, 'config')}
-                icon={'download'}
                 style={{marginLeft: '5px'}}
             >
                 Download Config
