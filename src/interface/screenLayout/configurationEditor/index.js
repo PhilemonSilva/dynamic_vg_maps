@@ -4,7 +4,7 @@ import { Button } from 'semantic-ui-react'
 import RoomEditor from "./RoomEditor";
 import CellManager from "./CellManager";
 import RouteEditor from "./RouteEditor";
-import MapDimensionEditor from "./MapDimensionEditor";
+import MapDimensionEditor from "./MapDimensionEditor"
 import {Wrapper, InputElement} from "./index.style";
 import SeedInput from "./SeedInput";
 import {download} from "../../../scripts/util/general";
@@ -49,13 +49,13 @@ const ConfigurationEditor = ({config, setConfig, isGeneratingMap, setIsGeneratin
             setConfig={setConfig}
             isGeneratingMap={isGeneratingMap}
         />
-        <InputElement>
-            <CellManager
-                cells={config.cellTypes}
-                setCells={setCells}
-                disabled={isGeneratingMap}
-            />
-        </InputElement>
+        <CellManager
+            cells={config.cellTypes}
+            setCells={setCells}
+            disabled={isGeneratingMap}
+            config={config}
+            setConfig={setConfig}
+        />
         <Button
             positive
             onClick={() => setIsGeneratingMap(true)}
@@ -82,6 +82,8 @@ ConfigurationEditor.defaultProps = {
         deadEndSpawnChance: 50,
         pathWidth: 2,
         organicPaths: true,
+        entryCell: { },
+        exitCell: { },
         cellTypes: []
     },
     setConfig: () => { },

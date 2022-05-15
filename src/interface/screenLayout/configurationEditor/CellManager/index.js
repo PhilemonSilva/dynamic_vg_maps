@@ -1,16 +1,21 @@
 import React from 'react';
 import { Segment } from 'semantic-ui-react';
 import CellTable from "./CellTable";
+import EntryAndExitEditor from "./EntryAndExitEditor";
 import PropTypes from 'prop-types';
 
-const CellManager = ({ cells, setCells, ...props }) => {
+const CellManager = ({ cells, setCells, config, setConfig, ...props }) => {
 
     return <>
         <Segment color='blue' {...props}>
-            <h4>Cells</h4>
+            <h4>Cells: </h4>
             <CellTable
                 cells={cells}
                 setCells={setCells}
+            />
+            <EntryAndExitEditor
+                config={config}
+                setConfig={setConfig}
             />
         </Segment>
     </>
@@ -19,12 +24,16 @@ const CellManager = ({ cells, setCells, ...props }) => {
 
 CellManager.propTypes = {
     cells: PropTypes.array,
-    setCells: PropTypes.func
+    setCells: PropTypes.func,
+    config: PropTypes.object,
+    setConfig: PropTypes.func
 }
 
 CellManager.defaultProps = {
     cells: [],
-    setCells: () => { }
+    setCells: () => { },
+    config: {},
+    setConfig: {}
 }
 
 export default CellManager

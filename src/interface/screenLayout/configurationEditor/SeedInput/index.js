@@ -21,7 +21,6 @@ const SeedInput = ({ seed, setSeed, isGeneratingMap, ...props }) => {
             onChange={(_,{ value}) => setSeed(value)}
             label='Seed: '
             placeholder='Seed...'
-
             {...props}
         />
         <Button

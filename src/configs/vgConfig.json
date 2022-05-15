@@ -11,41 +11,41 @@
     "id": -1,
     "name": "entry",
     "solid": false,
-    "color": "#000000"
+    "color": "#0ea432"
   },
   "exitCell": {
     "id": -2,
     "name": "exit",
     "solid": false,
-    "color": "#000000"
+    "color": "#0d71bb"
   },
   "cellTypes" : [
     {
       "id": 0,
       "name": "empty",
       "solid": false,
-      "color": "#f1c40f",
+      "color": "#bfbfbf",
       "spawnChance": 90
     },
     {
       "id": 1,
-      "name": "ouro",
+      "name": "gold",
       "solid": false,
-      "color": "#4ae31b",
+      "color": "#f1c40f",
       "spawnChance": 5
     },
     {
       "id": 2,
-      "name": "inimigo",
+      "name": "enemy",
       "solid": false,
-      "color": "#7343ba",
+      "color": "#e74c3c",
       "spawnChance": 5
     },
     {
       "id": 3,
       "name": "block",
       "solid": true,
-      "color": "#e74c3c",
+      "color": "#000000",
       "spawnChance": 100
     }
   ]
