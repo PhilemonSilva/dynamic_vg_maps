@@ -35,7 +35,7 @@ const SeedInput = ({ seed, setSeed, isGeneratingMap, ...props }) => {
         <InfoIcon
             text={'Seed for the map generation.' +
             ' The same seed, with the same parameters, ' +
-            'will generate the same output everytime. ' +
+            'will generate the same output every time. ' +
             'This property can be left blank.'}
         />
     </>
