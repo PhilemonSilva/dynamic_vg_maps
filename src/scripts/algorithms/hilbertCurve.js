@@ -45,8 +45,8 @@ const rotateMatrixRight = (matrix) => {
 
 //Gets a random subsection off of the original Hilbert Curve matrix:
 const generateOffsetHilbertMatrix = (roomsPerRow, hilbertCurve) => {
-    let offsetStartX = randomIntFromInterval(0, roomsPerRow);
-    let offsetStartY = randomIntFromInterval(0, roomsPerRow);
+    let offsetStartX = randomIntFromInterval(0, (hilbertCurve.length - roomsPerRow));
+    let offsetStartY = randomIntFromInterval(0, (hilbertCurve.length - roomsPerRow));
     let offsetEndX = offsetStartX + roomsPerRow - 1;
     let offsetEndY = offsetStartY + roomsPerRow - 1;
 

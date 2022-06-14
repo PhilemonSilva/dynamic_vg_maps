@@ -7,7 +7,7 @@ const MapDimensionInput = ({ mapDimension, setMapDimension, ...props }) => {
     return <>
         <Input
             value={mapDimension}
-            onChange={(_,{ value}) => setMapDimension(value)}
+            onChange={(_,{ value}) => setMapDimension(parseInt(value))}
             labelPosition='right'
             type='number'
             placeholder='100...'

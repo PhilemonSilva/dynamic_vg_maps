@@ -7,7 +7,7 @@ const DeadEndSpawnChanceInput = ({ deadEndSpawnChance, setDeadEndSpawnChance, ..
     return <>
         <Input
             value={deadEndSpawnChance}
-            onChange={(_,{ value}) => setDeadEndSpawnChance(value)}
+            onChange={(_,{ value}) => setDeadEndSpawnChance(parseInt(value))}
             labelPosition='right'
             type='number'
             placeholder='50...'

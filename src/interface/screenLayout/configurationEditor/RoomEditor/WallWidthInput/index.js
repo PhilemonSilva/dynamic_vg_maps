@@ -7,7 +7,7 @@ const WallWidthInput = ({ wallWidth, setWallWidth, ...props }) => {
     return <>
         <Input
             value={wallWidth}
-            onChange={(_,{ value}) => setWallWidth(value)}
+            onChange={(_,{ value}) => setWallWidth(parseInt(value))}
             labelPosition='right'
             type='number'
             placeholder='2'

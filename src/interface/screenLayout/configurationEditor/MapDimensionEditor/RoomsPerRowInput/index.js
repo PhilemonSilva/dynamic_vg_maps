@@ -7,7 +7,7 @@ const RoomsPerRowInput = ({ roomsPerRow, setRoomsPerRow, ...props }) => {
     return <>
         <Input
             value={roomsPerRow}
-            onChange={(_,{ value}) => setRoomsPerRow(value)}
+            onChange={(_,{ value}) => setRoomsPerRow(parseInt(value))}
             labelPosition='right'
             type='number'
             placeholder='5...'
