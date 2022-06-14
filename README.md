@@ -1,70 +1,84 @@
-# Getting Started with Create React App
+# Dynamic VG Maps
+## _Middleware for Procedural Generation of Videogame Maps_
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
-In the project directory, you can run:
+Dynamic VG Maps is a customizable Procedural Videogame Map Generator that aims to ease the process of development of Videogame Maps and Levels.
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Customization of map dimensions, cells and more;
+- Optional Interface included for map visualization;
+- Quick generation of validated procedural maps;
+- Always with a traversable path.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Technologies
 
-### `npm test`
+Dynamic VG Maps uses a multitude of open technologies to function properly:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- [React] - Interface developed using the React Framework;
+- [Node.js] - Scripts made with Node.js;
+- [Electron] - Used for creating an executable application;
+- [Hilbert-Curve] - Used for generating viable Hilbert-Curves for path generation.
 
-### `npm run build`
+## Installation
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Dillinger requires [Node.js](https://nodejs.org/) v16.13.1+ to run.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Install the dependencies and start the application.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```sh
+npm i
+npm run dev
+```
 
-### `npm run eject`
+## Customizable Parameters:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### _Seed_
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+The Random Number Generator (the basis for all randomness in the application) can
+receive a user defined sequence of characters denominated "seed". The same seed, with the
+same parameters, will generate the same output every time.
+If this input is left blank, the algorithm generates a random seed for the Random Number
+Generator.
+The user can click the "Get Current Seed"button, seen in Figure 11, to fill the "Seed"input
+with the randomized seed used to generate the currently displayed Map, or input a seed of his
+choosing.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### _Fill_
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+The Fill Parameter dictates the average percentage of solid Cell spawns, making Ro-
+oms more or less "cramped" with solid Cells. If at 100%, Rooms will always be completely
+composed of solid cells.
 
-## Learn More
+### _Path Width_
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+The Path Width Parameter manipulates the minimum width, in Cells, of the path through the Map.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### _Organic Paths_
 
-### Code Splitting
+The Organic Paths Parameter indicates if the generated path through the Map is "organic" in nature, meaning it has less hard, unnatural looking lines and edges
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### _Map Dimension_
 
-### Analyzing the Bundle Size
+The Map Dimension Parameter defines the width, in Cells, of the Map. All maps have to be square by nature, and as such, the "x100" segment showcased in Figure 15 is updated when the user changes the number in the Input.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### _Rooms Per Row_
 
-### Making a Progressive Web App
+The Rooms Per Row Parameter defines the amount of Rooms in the rows of the Map. If the user inputs the number 4, having the Map Dimension set at 100, the Map will be generated with a 4x4 Room layout in mind, with each Room dimension being 20 Cells (100 Cells per row, divided by 4 Rooms).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### _Dead End Chance_
 
-### Advanced Configuration
+The Dead End Chance Parameter defines the average chance of Rooms to be generated as Dead Ends.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### _Minimum Wall Width_
 
-### Deployment
+The Minimum Wall Width Parameter defines a minimum amount of solid cells to surround the Rooms generated, giving a stronger delineation of the Rooms to the user.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+[//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+[Hilbert-Curve]: <https://github.com/mhyfritz/hilbert-curve>
+[Node.js]: <http://nodejs.org>
+[Electron]: <https://www.electronjs.org/>
+[React]: <https://reactjs.org/>
