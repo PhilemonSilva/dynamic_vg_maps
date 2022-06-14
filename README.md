@@ -1,4 +1,4 @@
-# Dynamic VG Maps
+# Dynamic VG Maps (BETA)
 ## _Middleware for Procedural Generation of Videogame Maps_
 
 
